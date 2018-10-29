@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/singa-onnx.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Untitled.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/autograd.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/autograd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bvlc_googlenet.pickle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bvlc_googlenet.tar.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/homeautograd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/onnxmodel.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/read-onnx.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resnet-18.pickle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resnet-18.tar.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/synset_words.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,10 +46,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
+            <state relative-caret-position="-25">
               <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
@@ -78,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2044">
-              <caret line="710" column="18" selection-start-line="710" selection-start-column="18" selection-end-line="710" selection-end-column="18" />
+            <state relative-caret-position="159">
+              <caret line="645" column="7" lean-forward="true" selection-end-line="756" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
@@ -333,22 +313,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
+    <entry file="file://$PROJECT_DIR$/autograd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2044">
-          <caret line="710" column="18" selection-start-line="710" selection-start-column="18" selection-end-line="710" selection-end-column="18" />
+        <state relative-caret-position="-25">
+          <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
           <folding>
-            <element signature="e#790#821#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/autograd.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+        <state relative-caret-position="159">
+          <caret line="645" column="7" lean-forward="true" selection-end-line="756" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#790#821#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -646,15 +646,16 @@ def backward(y, dy=None):
     '''
     ######################
     ##onnx
-    from __future__ import absolute_import
-    from __future__ import division
-    from __future__ import print_function
-    from __future__ import unicode_literals
+    #from __future__ import absolute_import
+    #from __future__ import division
+    #from __future__ import print_function
+    #from __future__ import unicode_literals
     import onnx
     from onnx import helper
     from onnx import AttributeProto, TensorProto, GraphProto
     from onnx import numpy_helper
     import numpy as np
+    from singa import tensor
     X = helper.make_tensor_value_info('X', TensorProto.FLOAT, [1, 2])
     Y = helper.make_tensor_value_info('Y', TensorProto.FLOAT, [1, 2])
     node = []
@@ -687,22 +688,27 @@ def backward(y, dy=None):
         # if not isinstance(op, tensor.Dummy):
         dxs = op._do_backward(*dys)
         ##############################
-        pre = str(op).split('.')[-1].split(' ')[0]
-        cur = str(op.src[0][0]).split('.')[-1].split(' ')[0]
+        cur = str(op).split('.')[-1].split(' ')[0]
+        pre = str(op.src[0][0]).split('.')[-1].split(' ')[0]
+
+        if(pre == 'Dummy'):pre='X'
         if(op.param['name']=='LeakyRelu'):
             node = [onnx.helper.make_node('LeakyRelu',inputs=[pre],outputs=[cur])] + node
         elif(op.param['name']=='Softmax'):
-            node = [onnx.helper.make_node('Softmax',inputs=[pre],outputs=['Y'],)]+node
-        elif()
-        print('op param',op.param)
-        if('x' in op.param):
-            from singa import tensor
-            #print('op param x',Tensor())
-            print(tensor.to_numpy(Tensor(data=op.param['x'],device=op.param['x'].device)))
-            #print('op param x',tensor.to_numpy(op.param['x']))
-        print('op src',op.src)
-        print(str(op).split('.')[-1].split(' ')[0])
-        print(str(op.src[0][0]).split('.')[-1].split(' ')[0])
+            node = [onnx.helper.make_node('Softmax', inputs=[pre], outputs=['Y'], )] + node
+        elif(op.param['name']=='Add'):
+            node = [onnx.helper.make_node('Add', inputs=[pre,pre+'b'], outputs=[cur], )] + node
+            b = tensor.to_numpy(Tensor(data=op.param['b'],device=op.param['b'].device))
+            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre+'b'],
+                                          value=numpy_helper.from_array(b))] + node
+        elif(op.param['name']=='MatMul'):
+            node = [onnx.helper.make_node('MatMul', inputs=[pre, pre + 'w'], outputs=[cur], )] + node
+            w = tensor.to_numpy(Tensor(data=op.param['w'], device=op.param['w'].device))
+            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre + 'w'],
+                                          value=numpy_helper.from_array(w))] + node
+        #print('op param',op.param)
+        print('cur',str(op).split('.')[-1].split(' ')[0])
+        print('pre',str(op.src[0][0]).split('.')[-1].split(' ')[0])
         print('--end--')
         ##################################
         # TODO src and dx must match
@@ -747,5 +753,5 @@ def backward(y, dy=None):
 
     model_def = helper.make_model(helper.make_graph(node, "t", [X], [Y], ), producer_name='o')
     onnx.checker.check_model(model_def)
-    return gradients
+    return gradients,model_def
 
