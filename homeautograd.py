@@ -750,8 +750,9 @@ def backward(y, dy=None):
                     if not isinstance(src_op, Dummy):
                         ready.append((src_op, not_ready[src_op]))
                     del not_ready[src_op]
-
+    ###############################################
     model_def = helper.make_model(helper.make_graph(node, "t", [X], [Y], ), producer_name='o')
     onnx.checker.check_model(model_def)
+    ###############################################
     return gradients,model_def
 
