@@ -716,9 +716,9 @@ def backward(y, dy=None):
         pstr = str(op.src[0][0])
         #print()
 
-        print('dep', dependency)
-        print('cstr', cstr)
-        print('pstr', pstr)
+        #print('dep', dependency)
+        #print('cstr', cstr)
+        #print('pstr', pstr)
 
         if(pre == 'Dummy'):pstr=pre='X'
         if(op.param['name']=='LeakyRelu'):
@@ -738,12 +738,13 @@ def backward(y, dy=None):
             w = tensor.to_numpy(Tensor(data=op.param['w'], device=op.param['w'].device))
             node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd + 'w'],
                                           value=numpy_helper.from_array(w))] + node
+        else:print("extra name is:",op.param['name'])
         #print('op param',op.param)
         #print('cur',str(op).split('.')[-1].split(' ')[0])
         #print('pre',str(op.src[0][0]).split('.')[-1].split(' ')[0])
-        print('cur',str(op))
-        print('pre',str(op.src))
-        print('--end--')
+        #print('cur',str(op))
+        #print('pre',str(op.src))
+        #print('--end--')
         ##################################
         # TODO src and dx must match
         assert len(op.src) == len(dxs), \
