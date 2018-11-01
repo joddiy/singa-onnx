@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autograd.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/autograd.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/autograd.py" beforeDir="false" afterPath="$PROJECT_DIR$/autograd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/onnxmodel.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/onnxmodel.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homeautograd.py" beforeDir="false" afterPath="$PROJECT_DIR$/homeautograd.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,47 +14,48 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/singa_onnx$autograd__1_.coverage" NAME="autograd (1) Coverage Results" MODIFIED="1540732299880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/singa_onnx$autograd.coverage" NAME="autograd Coverage Results" MODIFIED="1540802814758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$autograd.coverage" NAME="autograd Coverage Results" MODIFIED="1541076692553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-759695332">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="ipynb" value="1" />
-          <entry key="py" value="4" />
+          <entry key="py" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IPNB" value="1" />
-          <entry key="Python" value="4" />
+          <entry key="Python" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1251" />
+          <entry key="py" value="1523" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1251" />
+          <entry key="Python" value="1523" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="64" column="33" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+            <state relative-caret-position="-81">
+              <caret line="66" column="5" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="5" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -62,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11817">
-              <caret line="1089" selection-start-line="1089" selection-end-line="1089" />
+            <state relative-caret-position="805">
+              <caret line="734" column="13" selection-start-line="734" selection-start-column="13" selection-end-line="734" selection-end-column="13" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
@@ -77,7 +78,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/tensor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-762">
+            <state relative-caret-position="1380">
               <caret line="102" column="31" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
             </state>
           </provider>
@@ -86,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/singa_wrap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1453">
-              <caret line="297" column="6" selection-start-line="297" selection-start-column="6" selection-end-line="297" selection-end-column="6" />
+            <state relative-caret-position="4500">
+              <caret line="300" column="6" selection-start-line="300" selection-start-column="6" selection-end-line="300" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -109,6 +110,16 @@
       <find>dxs</find>
       <find>matmul</find>
       <find>b</find>
+      <find>add</find>
+      <find>add(</find>
+      <find>param</find>
+      <find>0x7fd85346d780</find>
+      <find>0x7ff7ac6e24e0</find>
+      <find>dependency</find>
+      <find>0x7fefab3d94e0</find>
+      <find>in add</find>
+      <find>0x7f9a17635518</find>
+      <find>0x7f102cea84a8</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -117,8 +128,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py" />
         <option value="$PROJECT_DIR$/autograd.py" />
+        <option value="$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py" />
       </list>
     </option>
   </component>
@@ -138,6 +149,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,7 +161,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -266,15 +277,9 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12935324" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13045882" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3587866" />
@@ -282,11 +287,17 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="SciView" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,34 +316,34 @@
     </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/tensor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-762">
+        <state relative-caret-position="1380">
           <caret line="102" column="31" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/singa_wrap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1453">
-          <caret line="297" column="6" selection-start-line="297" selection-start-column="6" selection-end-line="297" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11817">
-          <caret line="1089" selection-start-line="1089" selection-end-line="1089" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="4500">
+          <caret line="300" column="6" selection-start-line="300" selection-start-column="6" selection-end-line="300" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/autograd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="64" column="33" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+        <state relative-caret-position="-81">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="5" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="805">
+          <caret line="734" column="13" selection-start-line="734" selection-start-column="13" selection-end-line="734" selection-end-column="13" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
           </folding>
         </state>
       </provider>

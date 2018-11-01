@@ -225,7 +225,7 @@ class AddBias(Operation):
             axis: 0 or 1, default is 0.
         '''
 
-        self.param = {'name':'Add','axis':axis}
+        self.param = {'name':'AddBias','axis':axis}
         self.axis = axis
 
     def forward(self, x, b):
@@ -573,6 +573,20 @@ def max_pool_2d(x, kernel_size=3, stride=1, padding=0, dilation=1,
                      ceil_mode, **kwargs)(x)[0]
 
 
+class Add(Operation):
+
+    def forward(self, a, b):
+        self.param = {'name': 'Add'}
+        return singa.__add__(a, b)
+
+    def backward(self, dy):
+        return dy, dy
+
+
+def add(a, b):
+    return Add()(a, b)[0]
+
+
 class Flatten(Operation):
 
     def __init__(self):
@@ -618,7 +632,9 @@ def infer_dependency(op):
     queue = deque([op])
     while len(queue) > 0:
         cur_op = queue.pop()
-        print('curop',cur_op)
+        #print('curop',cur_op)
+        #print('preop',cur_op.src)
+        #print('-------')
         for src_op, _, _, _ in cur_op.src:
             if src_op not in dependency_count and \
                     (not isinstance(src_op, Dummy)):
@@ -644,6 +660,7 @@ def backward(y, dy=None):
         a dictionary storing the gradient tensors of all tensors
         whose stores_grad is true (e.g. parameter tensors)
     '''
+
     ######################
     ##onnx
     #from __future__ import absolute_import
@@ -663,6 +680,7 @@ def backward(y, dy=None):
 
 
     dependency = infer_dependency(y.creator)
+
     assert y.size() == 1, 'y must be a Tensor with a single value;'\
         'size of y is % d' % y.size()
 
@@ -690,25 +708,41 @@ def backward(y, dy=None):
         ##############################
         cur = str(op).split('.')[-1].split(' ')[0]
         pre = str(op.src[0][0]).split('.')[-1].split(' ')[0]
+        cc = str(op).split(' ')[-1]
+        pc = str(op.src[0][0]).split(' ')[-1]
+        cstrd = str(op)+str(dependency[op])
+        pstrd = str(op.src[0][0])+str(dependency[op.src[0][0]])
+        cstr = str(op)
+        pstr = str(op.src[0][0])
+        #print()
 
-        if(pre == 'Dummy'):pre='X'
+        print('dep', dependency)
+        print('cstr', cstr)
+        print('pstr', pstr)
+
+        if(pre == 'Dummy'):pstr=pre='X'
         if(op.param['name']=='LeakyRelu'):
-            node = [onnx.helper.make_node('LeakyRelu',inputs=[pre],outputs=[cur])] + node
+            node = [onnx.helper.make_node('LeakyRelu',inputs=[pstr],outputs=[cstr], )] + node
         elif(op.param['name']=='Softmax'):
-            node = [onnx.helper.make_node('Softmax', inputs=[pre], outputs=['Y'], )] + node
-        elif(op.param['name']=='Add'):
-            node = [onnx.helper.make_node('Add', inputs=[pre,pre+'b'], outputs=[cur], )] + node
+            node = [onnx.helper.make_node('Softmax', inputs=[pstr], outputs=['Y'], )] + node
+        elif(op.param['name']=='AddBias'):
+            node = [onnx.helper.make_node('Add', inputs=[pstr,pstrd+'b'], outputs=[cstr], )] + node
             b = tensor.to_numpy(Tensor(data=op.param['b'],device=op.param['b'].device))
-            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre+'b'],
+            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd+'b'],
                                           value=numpy_helper.from_array(b))] + node
+        elif (op.param['name'] == 'Add'):
+            node = [onnx.helper.make_node('Add', inputs=[pstr, str(op.src[1][0])], outputs=[cstr], )] + node
+            #print('in add',str(op.src[1][0]))
         elif(op.param['name']=='MatMul'):
-            node = [onnx.helper.make_node('MatMul', inputs=[pre, pre + 'w'], outputs=[cur], )] + node
+            node = [onnx.helper.make_node('MatMul', inputs=[pstr, pstrd + 'w'], outputs=[cstr], )] + node
             w = tensor.to_numpy(Tensor(data=op.param['w'], device=op.param['w'].device))
-            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre + 'w'],
+            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd + 'w'],
                                           value=numpy_helper.from_array(w))] + node
         #print('op param',op.param)
-        print('cur',str(op).split('.')[-1].split(' ')[0])
-        print('pre',str(op.src[0][0]).split('.')[-1].split(' ')[0])
+        #print('cur',str(op).split('.')[-1].split(' ')[0])
+        #print('pre',str(op.src[0][0]).split('.')[-1].split(' ')[0])
+        print('cur',str(op))
+        print('pre',str(op.src))
         print('--end--')
         ##################################
         # TODO src and dx must match
