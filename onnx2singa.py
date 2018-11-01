@@ -2,8 +2,8 @@ from singa import tensor
 from singa.tensor import Tensor
 from singa import autograd
 from singa import optimizer
-
 import numpy as np
+
 #import caffe2.python.onnx.backend as backend
 import pickle
 autograd.training = True
@@ -44,21 +44,15 @@ print('train_label_shape:', label.shape)
 inputs = Tensor(data=data)
 target = Tensor(data=label)
 
-w0 = Tensor(shape=(2, 2), requires_grad=True, stores_grad=True)
-w0.gaussian(0.0, 0.1)
-b0 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
-b0.set_value(0.0)
-
-w1 = Tensor(shape=(2, 2), requires_grad=True, stores_grad=True)
-w1.gaussian(0.0, 0.1)
-b1 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
-b1.set_value(0.0)
-
-w2 = Tensor(shape=(2, 2), requires_grad=True, stores_grad=True)
-w2.gaussian(0.0, 0.1)
-b2 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
-b2.set_value(0.0)
-
+with open('onnxmodel.pkl', 'rb') as input:
+    model = pickle.load(input)
+with open('tensor.pkl', 'rb') as input:
+    a = pickle.load(input)
+    print(a)
+for key,value in a.item():
+    a[key] = tensor.from_numpy(a[key])
+    a[key].stores_grad =True
+print(a)
 sgd = optimizer.SGD(0.05)
 
 # training process
