@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/autograd.py" beforeDir="false" afterPath="$PROJECT_DIR$/autograd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/onnx2singa.py" beforeDir="false" afterPath="$PROJECT_DIR$/onnx2singa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/onnxmodel.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/onnxmodel.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/read-onnx.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/read-onnx.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autograd.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/onnx2singa.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +16,7 @@
     <SUITE FILE_PATH="coverage/singa_onnx$autograd__1_.coverage" NAME="autograd (1) Coverage Results" MODIFIED="1540732299880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$onnx2singa.coverage" NAME="onnx2singa Coverage Results" MODIFIED="1541127815954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$autograd.coverage" NAME="autograd Coverage Results" MODIFIED="1541127820953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$cnn.coverage" NAME="cnn Coverage Results" MODIFIED="1541136781921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-759695332">
@@ -32,34 +30,34 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="ipynb" value="1" />
-          <entry key="py" value="7" />
+          <entry key="py" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IPNB" value="1" />
-          <entry key="Python" value="7" />
+          <entry key="Python" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2007" />
+          <entry key="py" value="2197" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2007" />
+          <entry key="Python" value="2197" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/autograd.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mlp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-437">
-              <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+            <state relative-caret-position="1752">
+              <caret line="87" column="44" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="44" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -68,10 +66,21 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/onnx2singa.py">
+        <entry file="file://$PROJECT_DIR$/cnn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+            <state relative-caret-position="178">
+              <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mlponnx2singa.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1537">
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -91,14 +100,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
-              <caret line="749" column="9" selection-start-line="749" selection-start-column="9" selection-end-line="749" selection-end-column="9" />
+            <state relative-caret-position="230">
+              <caret line="744" column="16" selection-start-line="744" selection-start-column="16" selection-end-line="744" selection-end-column="16" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/layer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="489">
+              <caret line="1184" selection-start-line="1184" selection-end-line="1184" />
             </state>
           </provider>
         </entry>
@@ -108,15 +126,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-100">
               <caret line="570" column="4" selection-start-line="570" selection-start-column="4" selection-end-line="570" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/singa_wrap.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4500">
-              <caret line="300" column="6" selection-start-line="300" selection-start-column="6" selection-end-line="300" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -148,9 +157,9 @@
       <find>0x7f9a17635518</find>
       <find>0x7f102cea84a8</find>
       <find>0x7f7ac7021518</find>
+      <find>input</find>
       <find>from_numpy</find>
       <find>dependency</find>
-      <find>input</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -160,9 +169,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/read-onnx.py" />
-        <option value="$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py" />
-        <option value="$PROJECT_DIR$/autograd.py" />
         <option value="$PROJECT_DIR$/onnx2singa.py" />
+        <option value="$PROJECT_DIR$/autograd.py" />
+        <option value="$PROJECT_DIR$/cnn.py" />
+        <option value="$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py" />
       </list>
     </option>
   </component>
@@ -215,7 +225,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.autograd">
+  <component name="RunManager" selected="Python.cnn">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="singa-onnx" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -252,6 +262,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/autograd.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cnn" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="singa-onnx" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../.conda/envs/singa-onnx/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cnn.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -308,9 +340,11 @@
       <item itemvalue="Python.read-onnx.py" />
       <item itemvalue="Python.autograd" />
       <item itemvalue="Python.onnx2singa" />
+      <item itemvalue="Python.cnn" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cnn" />
         <item itemvalue="Python.autograd" />
         <item itemvalue="Python.onnx2singa" />
       </list>
@@ -338,7 +372,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25209206" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38389122" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -370,9 +404,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="55" column="59" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/onnx2singa.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/singa_wrap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4500">
+        <state relative-caret-position="2358">
           <caret line="300" column="6" selection-start-line="300" selection-start-column="6" selection-end-line="300" selection-end-column="6" />
         </state>
       </provider>
@@ -381,16 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-100">
           <caret line="570" column="4" selection-start-line="570" selection-start-column="4" selection-end-line="570" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="749" column="9" selection-start-line="749" selection-start-column="9" selection-end-line="749" selection-end-column="9" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -404,22 +448,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/onnx2singa.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/layer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        <state relative-caret-position="489">
+          <caret line="1184" selection-start-line="1184" selection-end-line="1184" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlponnx2singa.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1537">
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/autograd.py">
+    <entry file="file://$PROJECT_DIR$/mlp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-437">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        <state relative-caret-position="1752">
+          <caret line="87" column="44" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="44" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="744" column="16" selection-start-line="744" selection-start-column="16" selection-end-line="744" selection-end-column="16" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
           </folding>
         </state>
       </provider>
