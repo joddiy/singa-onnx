@@ -15,8 +15,10 @@ f = lambda x: (5 * x + 1)
 bd_x = np.linspace(-1., 1, 2)
 bd_y = f(bd_x)
 # generate the training data
-x = np.random.uniform(-1, 1, 4)
-y = f(x) + 2 * np.random.randn(len(x))
+#x = np.random.uniform(-1, 1, 4)
+x = np.array([0,0.5,-0.5,0.1])
+#print(x)
+y = f(x)# + 2 * np.random.randn(len(x))
 # convert training data to 2d space
 label = np.asarray([5 * a + 1 > b for (a, b) in zip(x, y)])
 data = np.array([[a, b] for (a, b) in zip(x, y)], dtype=np.float32)
@@ -59,7 +61,7 @@ w2.gaussian(0.0, 0.1)
 b2 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
 b2.set_value(0.0)
 
-sgd = optimizer.SGD(0.05)
+sgd = optimizer.SGD(0.00)
 
 # training process
 for i in range(1):
@@ -93,7 +95,7 @@ for i in range(1):
     if (i % 100 == 0):
         print('training loss = ', tensor.to_numpy(loss)[0])
 
-    with open('onnxmodel.pkl', 'wb') as output:
+    with open('singonnx.pkl', 'wb') as output:
         pickle.dump(model,output)
     #rep = backend.prepare(model, device="CPU")  # or "CPU"
     #outputs = rep.run(np.ones((2, 2)).astype(np.float32))
