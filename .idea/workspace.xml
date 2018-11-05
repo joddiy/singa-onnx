@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/autograd.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/onnx2singa.py" beforeDir="false" />
-    </list>
+    <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +101,7 @@
         <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
-              <caret line="744" column="16" selection-start-line="744" selection-start-column="16" selection-end-line="744" selection-end-column="16" />
+              <caret line="744" column="16" lean-forward="true" selection-start-line="744" selection-start-column="16" selection-end-line="744" selection-end-column="16" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
@@ -182,7 +179,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="-4" />
     <option name="width" value="1920" />
     <option name="height" value="1084" />
@@ -487,7 +484,7 @@
     <entry file="file://$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="744" column="16" selection-start-line="744" selection-start-column="16" selection-end-line="744" selection-end-column="16" />
+          <caret line="744" column="16" lean-forward="true" selection-start-line="744" selection-start-column="16" selection-end-line="744" selection-end-column="16" />
           <folding>
             <element signature="e#790#821#0" expanded="true" />
           </folding>
