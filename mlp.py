@@ -63,8 +63,6 @@ b2.set_value(0.0)
 
 
 
-
-
 sgd = optimizer.SGD(0.00)
 
 # training process
