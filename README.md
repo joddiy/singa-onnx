@@ -23,5 +23,5 @@ singa to onnx
 - computing graph and the code to save onnx model
 
 # singa verion
-- 1.1.1
+- singa.__version__:1101
 - installed from conda
