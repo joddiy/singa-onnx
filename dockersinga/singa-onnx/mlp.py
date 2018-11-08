@@ -83,11 +83,11 @@ for i in range(1):
     #print('---auto end---')
     #x = autograd.matmul(x, w1)
     #x = autograd.add_bias(x, b1)
-    x3 = autograd.soft_max(x3)
+    x3 = autograd.softmax(x3)
     loss = autograd.cross_entropy(x3, target)
     #print(autograd.backward(loss))
     gradient = autograd.backward(loss)
-    for p, gp in gradient.items():
+    for p, gp in gradient:
         #print(p.shape)
         #print(gp.shape)
         gp.reshape(p.shape)
