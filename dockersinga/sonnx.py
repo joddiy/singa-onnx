@@ -40,12 +40,26 @@ from . import singa_wrap as singa
 from autograd import *
 
 def load_onnx_model(name = 'singonnx.pkl'):
-
+    '''
+        load onnx model
+        Args:
+            name:name of onnx model file
+        Return:
+            onnx model
+    '''
     with open(name, 'rb') as f:
         model = pickle.load(f)
     return model
 
 def onnx_model_init(inputs,model):
+    '''
+    init onnx model
+    Args:
+        inputs: input data for model
+        model: onnx model
+    Return:
+        a dictionary for save all of the node of singa computation graph
+    '''
     a = {}
     a['X'] = inputs
     for i in model.graph.node:
@@ -55,6 +69,15 @@ def onnx_model_init(inputs,model):
     return a
 
 def onnx_loss(a,model,target):
+    '''
+    get onnx model loss
+    Args:
+        a: singa computational graph nodes dictionary
+        model: onnx model
+        target:
+    Return:
+        loss for onnx model
+    '''
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
             pass
@@ -77,6 +100,13 @@ def onnx_loss(a,model,target):
 
 
 def get_onnx_model(y, dy=None):
+    '''
+    from singa computational graph(loss) to get onnx model
+    Args:
+        y:loss of singa autograd
+    Return:
+        onnx model
+    '''
     ######################
     import onnx
     from onnx import helper
@@ -90,6 +120,7 @@ def get_onnx_model(y, dy=None):
     ######################
 
     dependency = infer_dependency(y.creator)
+    #get singa computational graph dependency
 
     assert y.size() == 1, 'y must be a Tensor with a single value;' \
                           'size of y is % d' % y.size()
@@ -104,6 +135,7 @@ def get_onnx_model(y, dy=None):
 
     # ready is a queue of (operation, dy list)
     ready = deque([(y.creator, (dy,))])
+    # using bfs iterative method to check all computational graph nodes
     not_ready = {}  # mapping: op->[dy]
     gradients = {}  # mapping: x->dx if x.stores_grad
     if y.stores_grad:
@@ -111,6 +143,7 @@ def get_onnx_model(y, dy=None):
 
     while len(ready) > 0:
         op, dys = ready.pop()
+        #check all children nodes of this node
         if not op.requires_grad or isinstance(op, Dummy):
             continue
         # if not isinstance(op, tensor.Dummy):
@@ -124,9 +157,12 @@ def get_onnx_model(y, dy=None):
         pstrd = str(op.src[0][0]) + str(dependency[op.src[0][0]])
         cstr = str(op)
         pstr = str(op.src[0][0])
+        #get father node's name and children nodes' names
 
         if (pre == 'Dummy'): pstr = pre = 'X'
+        # if it is father node is dummy, the node will be input x
         if (op.param['name'] == 'LeakyRelu'):
+        # save autograd layers param name, and use here for saving onnx model
             node = [onnx.helper.make_node('LeakyRelu', inputs=[pstr], outputs=[cstr], )] + node
         elif (op.param['name'] == 'Softmax'):
             node = [onnx.helper.make_node('Softmax', inputs=[pstr], outputs=['Y'], )] + node
@@ -155,6 +191,7 @@ def get_onnx_model(y, dy=None):
             node = [onnx.helper.make_node('Flatten', inputs=[pstr], outputs=[cstr], )] + node
         else:
             pass
+        ##get all computational graph nodes and save for onnx nodes
         ##################################
         # TODO src and dx must match
         assert len(op.src) == len(dxs), \
@@ -196,8 +233,10 @@ def get_onnx_model(y, dy=None):
                         ready.append((src_op, not_ready[src_op]))
                     del not_ready[src_op]
     ###############################################
+    # specific input data x, output data y and all intermediary nodes
     model_def = helper.make_model(helper.make_graph(node, "t", [X], [Y], ), producer_name='o')
     onnx.checker.check_model(model_def)
+    # check is there any problem of onnx model
     ###############################################
     return model_def
 
