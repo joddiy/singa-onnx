@@ -4,9 +4,6 @@ from singa import autograd
 from singa import optimizer
 import numpy as np
 from singa import sonnx
-
-#import caffe2.python.onnx.backend as backend
-import pickle
 autograd.training = True
 
 # prepare training data in numpy array
@@ -18,9 +15,7 @@ bd_y = f(bd_x)
 # generate the training data
 #x = np.random.uniform(-1, 1, 4)
 x = np.array([0,0.5,-0.5,0.1])
-#print(x)
 y = f(x)# + 2 * np.random.randn(len(x))
-#print(y)
 # convert training data to 2d space
 label = np.asarray([5 * a + 1 > b for (a, b) in zip(x, y)])
 data = np.array([[a, b] for (a, b) in zip(x, y)], dtype=np.float32)
@@ -52,7 +47,6 @@ model =sonnx.load_onnx_model('singonnx.pkl')
 a = sonnx.onnx_model_init(inputs,model)
 
 
-#print(a)
 sgd = optimizer.SGD(0.00)
 
 # training process
