@@ -3,6 +3,7 @@ from singa.tensor import Tensor
 from singa import autograd
 from singa import optimizer
 from singa import *
+from singa import sonnx
 
 import numpy as np
 #import caffe2.python.onnx.backend as backend
@@ -83,11 +84,11 @@ for i in range(1):
     #print('---auto end---')
     #x = autograd.matmul(x, w1)
     #x = autograd.add_bias(x, b1)
-    x3 = autograd.soft_max(x3)
+    x3 = autograd.softmax(x3)
     loss = autograd.cross_entropy(x3, target)
     #print(autograd.backward(loss))
     gradient = autograd.backward(loss)
-    for p, gp in gradient.items():
+    for p, gp in gradient:
         #print(p.shape)
         #print(gp.shape)
         gp.reshape(p.shape)
@@ -99,7 +100,7 @@ for i in range(1):
         print('training loss = ', tensor.to_numpy(loss)[0])
 
 
-model=autograd.get_onnx_model(loss)
+model=sonnx.get_onnx_model(loss)
 
 with open('singonnx.pkl', 'wb') as output:
     pickle.dump(model,output)

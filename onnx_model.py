@@ -30,7 +30,7 @@ def onnx_loss(a,model,target):
         if (i.op_type == 'LeakyRelu'):
             a[str(i.output[0])] = autograd.relu(a[str(i.input[0])])
         elif (i.op_type == 'Softmax'):
-            a[str(i.output[0])] = autograd.soft_max(a[str(i.input[0])])
+            a[str(i.output[0])] = autograd.softmax(a[str(i.input[0])])
         elif (i.op_type == 'Add'):
             if(str(i.input[1])[-1] == 'b'):
                 a[str(i.output[0])] = autograd.add_bias(a[str(i.input[0])], a[str(i.input[1])])

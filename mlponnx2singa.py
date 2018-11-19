@@ -3,9 +3,7 @@ from singa.tensor import Tensor
 from singa import autograd
 from singa import optimizer
 import numpy as np
-import onnx
-from onnx import numpy_helper
-from onnx_model import *
+from singa import sonnx
 
 #import caffe2.python.onnx.backend as backend
 import pickle
@@ -50,8 +48,8 @@ print('train_label_shape:', label.shape)
 inputs = Tensor(data=data)
 target = Tensor(data=label)
 
-model =load_onnx_model('singonnx.pkl')
-a = onnx_model_init(inputs,model)
+model =sonnx.load_onnx_model('singonnx.pkl')
+a = sonnx.onnx_model_init(inputs,model)
 
 
 #print(a)
@@ -59,16 +57,11 @@ sgd = optimizer.SGD(0.00)
 
 # training process
 for epoch in range(1):
-    #print('auto grad x', tensor.to_numpy(Tensor(data=inputs.data, device=inputs.data.device)))
-    loss = onnx_loss(a,model,target)
+    loss = sonnx.onnx_loss(a,model,target)
     gradient = autograd.backward(loss)
-    for p, gp in gradient.items():
-        #print(p.shape)
-        #print(gp.shape)
+    for p, gp in gradient:
         gp.reshape(p.shape)
-        #print()
-        #gp = gp.reshape(p.shape)
-        #print(gp.shape)
         sgd.apply(0, gp, p, '')
     if (epoch % 100 == 0):
         print('training loss = ', tensor.to_numpy(loss)[0])
+
