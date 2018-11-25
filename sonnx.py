@@ -89,6 +89,8 @@ def get_onnx_model(y, dy=None):
     if y.stores_grad:
         gradients[y] = dy
 
+    supportOp = set(['LeakyRelu','Softmax','Add','MatMul','Flatten'])
+
     while len(ready) > 0:
         op, dys = ready.pop()
         if not op.requires_grad or isinstance(op, Dummy):
@@ -96,45 +98,30 @@ def get_onnx_model(y, dy=None):
         # if not isinstance(op, tensor.Dummy):
         dxs = op._do_backward(*dys)
         ##############################
-        cur = str(op).split('.')[-1].split(' ')[0]
-        pre = str(op.src[0][0]).split('.')[-1].split(' ')[0]
-        cc = str(op).split(' ')[-1]
-        pc = str(op.src[0][0]).split(' ')[-1]
-        cstrd = str(op) + str(dependency[op])
-        pstrd = str(op.src[0][0]) + str(dependency[op.src[0][0]])
-        cstr = str(op)
-        pstr = str(op.src[0][0])
-
-        if (pre == 'Dummy'): pstr = pre = 'X'
-        if (op.param['name'] == 'LeakyRelu'):
-            node = [onnx.helper.make_node('LeakyRelu', inputs=[pstr], outputs=[cstr], )] + node
-        elif (op.param['name'] == 'Softmax'):
-            node = [onnx.helper.make_node('Softmax', inputs=[pstr], outputs=['Y'], )] + node
-        elif (op.param['name'] == 'AddBias'):
-            node = [onnx.helper.make_node('Add', inputs=[pstr, pstrd + 'b'], outputs=[cstr], )] + node
-            b = ctensor2numpy(op.param['b'])
-            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd + 'b'],value=numpy_helper.from_array(b))] + node
-        elif (op.param['name'] == 'Add'):
-            node = [onnx.helper.make_node('Add', inputs=[pstr, str(op.src[1][0])], outputs=[cstr], )] + node
-        elif (op.param['name'] == 'MatMul'):
-            node = [onnx.helper.make_node('MatMul', inputs=[pstr, pstrd + 'w'], outputs=[cstr], )] + node
-            w = ctensor2numpy(op.param['w'])
-            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd + 'w'],value=numpy_helper.from_array(w))] + node
-        elif (op.param['name'] == 'linear'):
-            pass
-            '''
-            node = [onnx.helper.make_node('MatMul', inputs=[pstr, pstrd + 'w'], outputs=[cstr], )] + node
-            w = tensor.to_numpy(Tensor(data=op.param['w'], device=op.param['w'].device))
-            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd + 'w'],
-                                          value=numpy_helper.from_array(w))] + node
-            b = tensor.to_numpy(Tensor(data=op.param['w'], device=op.param['w'].device))
-            node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pstrd + 'w'],
-                                          value=numpy_helper.from_array(w))] + node
-            '''
-        elif (op.param['name'] == 'Flatten'):
-            node = [onnx.helper.make_node('Flatten', inputs=[pstr], outputs=[cstr], )] + node
-        else:
-            pass
+        curname = str(op).split('.')[-1].split(' ')[0]
+        prefname = str(op.src[0][0]).split('.')[-1].split(' ')[0]
+        cur = str(op)
+        pre = [str(i[0]) for i in op.src]
+        if op.param['name'] in supportOp:
+            if (prefname == 'Dummy'): pre[0] = 'X'
+            print(cur)
+            print(pre)
+            print ('~~~~~~~~~~~~')
+            if (op.param['name'] == 'Softmax'):
+                node = [onnx.helper.make_node('Softmax', inputs=pre, outputs=['Y'], )] + node
+            else:
+                node = [onnx.helper.make_node(op.param['name'], inputs=pre, outputs=[cur], )] + node
+                num = 1
+                if 'b' in op.param:
+                    b = ctensor2numpy(op.param['b'])
+                    node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
+                                                  value=numpy_helper.from_array(b))] + node
+                    num+=1
+                if 'w' in op.param:
+                    w = ctensor2numpy(op.param['w'])
+                    node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
+                                                  value=numpy_helper.from_array(w))] + node
+                    num+=1
         ##################################
         # TODO src and dx must match
         assert len(op.src) == len(dxs), \
