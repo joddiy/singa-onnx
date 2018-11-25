@@ -5,21 +5,7 @@ from singa import optimizer
 import numpy as np
 from singa import sonnx
 autograd.training = True
-
-# prepare training data in numpy array
-
-# generate the boundary
-f = lambda x: (5 * x + 1)
-bd_x = np.linspace(-1., 1, 2)
-bd_y = f(bd_x)
-# generate the training data
-#x = np.random.uniform(-1, 1, 4)
-x = np.array([0,0.5,-0.5,0.1])
-y = f(x)# + 2 * np.random.randn(len(x))
-# convert training data to 2d space
-label = np.asarray([5 * a + 1 > b for (a, b) in zip(x, y)])
-data = np.array([[a, b] for (a, b) in zip(x, y)], dtype=np.float32)
-print(data.shape,label.shape)
+np.random.seed(0)
 data = np.random.randn(4,3).astype(np.float32)
 label = np.random.randint(0,2,(4)).astype(int)
 print(label)
