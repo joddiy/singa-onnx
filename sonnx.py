@@ -19,20 +19,16 @@ from . import singa_wrap as singa
 #from .tensor import einsum
 from autograd import *
 
-def load_onnx_model(name = 'singonnx.pkl'):
-
-    with open(name, 'rb') as f:
-        model = pickle.load(f)
-    return model
-
-def onnx_model_init(inputs,model):
+def onnx_model_init(inputs,name = 'singonnx.pkl'):
+    f = open(name, 'rb')
+    model = pickle.load(f)
     a = {}
     a['X'] = inputs
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
             a[str(i.output[0])] = tensor.from_numpy(numpy_helper.to_array(i.attribute[0].t))
             a[str(i.output[0])].stores_grad = True
-    return a
+    return a,model
 
 def onnx_loss(a,model,target):
     for i in model.graph.node:
@@ -104,9 +100,6 @@ def get_onnx_model(y, dy=None):
         pre = [str(i[0]) for i in op.src]
         if op.param['name'] in supportOp:
             if (prefname == 'Dummy'): pre[0] = 'X'
-            print(cur)
-            print(pre)
-            print ('~~~~~~~~~~~~')
             if (op.param['name'] == 'Softmax'):
                 node = [onnx.helper.make_node('Softmax', inputs=pre, outputs=['Y'], )] + node
             else:
@@ -145,17 +138,16 @@ def get_onnx_model(y, dy=None):
                 not_ready[src_op] = [None for _ in src_op.y_id2idx]
                 not_ready[src_op][y_idx] = dx
             else:
-                dxs = not_ready[src_op]
-                if dxs[y_idx] is None:
-                    dxs[y_idx] = dx
-                else:
+                pass
+                #dxs = not_ready[src_op]
+                #if dxs[y_idx] is None:
+                #    dxs[y_idx] = dx
+                #else:
                     # add the gradient from another children operation that
                     # uses y_idx'th output of src_op as input arg
-                    dxs[y_idx] += dx
+                #    dxs[y_idx] += dx
             if y_stores_grad:
-                # store the gradient for final return, e.g. if x is parameter
-                g = not_ready[src_op][y_idx]
-                #gradients[y] = Tensor(device=g.device, data=g)
+                pass
             dependency[src_op] -= 1
             if src_op.requires_grad is True:
                 if dependency[src_op] == 0:

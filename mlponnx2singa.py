@@ -34,8 +34,8 @@ print('train_label_shape:', label.shape)
 inputs = Tensor(data=data)
 target = Tensor(data=label)
 
-model =sonnx.load_onnx_model('singonnx.pkl')
-a = sonnx.onnx_model_init(inputs,model)
+
+a,model = sonnx.onnx_model_init(inputs,'singonnx.pkl')
 
 
 sgd = optimizer.SGD(0.00)
