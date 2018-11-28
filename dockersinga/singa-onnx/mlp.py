@@ -27,7 +27,6 @@ from singa import *
 from singa import sonnx
 
 import numpy as np
-#import caffe2.python.onnx.backend as backend
 import pickle
 autograd.training = True
 np.random.seed(0)

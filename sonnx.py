@@ -18,18 +18,19 @@
 #
 
 
+
 from __future__ import division
 import pickle
 from singa import tensor
 from singa.tensor import Tensor
 from singa import autograd
 from singa import optimizer
-import numpy as np
 import onnx
+from onnx import helper
+from onnx import AttributeProto, TensorProto, GraphProto
 from onnx import numpy_helper
 
 from collections import Counter, deque
-import numpy as np
 import math
 
 from .tensor import Tensor
@@ -39,23 +40,41 @@ from . import singa_wrap as singa
 #from .tensor import einsum
 from autograd import *
 
-def onnx_model_init(inputs,name = 'singonnx.pkl'):
-    f = open(name, 'rb')
-    model = pickle.load(f)
+def onnx_model_init(inputs,name):
+    '''
+    load onnx model graph and load weights
+    input:
+    input data and file name of onnx model
+
+    return:
+     a graph node dictionary
+     model: graph model
+    '''
+    model = onnx.load('singa.onnx')
     a = {}
     a['X'] = inputs
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
-            a[str(i.output[0])] = tensor.from_numpy(numpy_helper.to_array(i.attribute[0].t))
+            a[str(i.output[0])] = tensor.from_numpy(onnx.numpy_helper.to_array(i.attribute[0].t))
             a[str(i.output[0])].stores_grad = True
     return a,model
 
 def onnx_loss(a,model,target):
+    '''
+    input:
+    a graph node dictionary
+    model: graph model
+    target: label
+
+    load other nodes of onnx
+    '''
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
             pass
             # do nothing
         if (i.op_type == 'LeakyRelu'):
+            a[str(i.output[0])] = autograd.relu(a[str(i.input[0])])
+        elif (i.op_type == 'Relu'):
             a[str(i.output[0])] = autograd.relu(a[str(i.input[0])])
         elif (i.op_type == 'Softmax'):
             a[str(i.output[0])] = autograd.softmax(a[str(i.input[0])])
@@ -73,13 +92,17 @@ def onnx_loss(a,model,target):
 
 
 def get_onnx_model(y, dy=None):
+    '''
+	get onnx model from singa computational graph
+	Args:
+        y: a Tensor instance, usually the loss
+        dy: a number or a Tensor instance, for the gradient of the
+            objective/loss w.r.t y, usually 1.0
+        Return:
+        loss for onnx model
+    '''
     ######################
-    import onnx
-    from onnx import helper
-    from onnx import AttributeProto, TensorProto, GraphProto
-    from onnx import numpy_helper
-    import numpy as np
-    from singa import tensor
+
     X = helper.make_tensor_value_info('X', TensorProto.FLOAT, [1, 2])
     Y = helper.make_tensor_value_info('Y', TensorProto.FLOAT, [1, 2])
     node = []
@@ -179,4 +202,3 @@ def get_onnx_model(y, dy=None):
     onnx.checker.check_model(model_def)
     ###############################################
     return model_def
-

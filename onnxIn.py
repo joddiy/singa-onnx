@@ -17,51 +17,57 @@
 # under the License.
 #
 
+
+
+from __future__ import division
+import pickle
 from singa import tensor
 from singa.tensor import Tensor
 from singa import autograd
 from singa import optimizer
-import numpy as np
-from singa import sonnx
+import onnx
+from onnx import helper
+from onnx import AttributeProto, TensorProto, GraphProto
+from onnx import numpy_helper
 
-autograd.training = True
-np.random.seed(0)
-data = np.random.randn(4,3).astype(np.float32)
-label = np.random.randint(0,2,(4)).astype(int)
-print(label)
-print(data.shape,label.shape)
+from collections import Counter, deque
+import math
 
-def to_categorical(y, num_classes):
+from .tensor import Tensor
+from . import layer
+from singa.proto import model_pb2
+from . import singa_wrap as singa
+#from .tensor import einsum
+from autograd import *
+
+def onnx_model_init(inputs,name):
     '''
-    Converts a class vector (integers) to binary class matrix.
-    Args
-        y: class vector to be converted into a matrix
-            (integers from 0 to num_classes).
-        num_classes: total number of classes.
-    Return
-        A binary matrix representation of the input.
+    load onnx model graph and load weights
+    input:
+    input data and file name of onnx model
+
+    return:
+     a graph node dictionary
+     model: graph model
     '''
-    y = np.array(y, dtype='int')
-    n = y.shape[0]
-    categorical = np.zeros((n, num_classes))
-    categorical[np.arange(n), y] = 1
-    return categorical
+    model = onnx.load('singa.onnx')
+    a = {}
+    a['X'] = inputs
+    for i in model.graph.node:
+        if (i.op_type == 'Constant'):
+            a[str(i.output[0])] = tensor.from_numpy(onnx.numpy_helper.to_array(i.attribute[0].t))
+            a[str(i.output[0])].stores_grad = True
+    return a,model
 
-label = to_categorical(label, 3).astype(np.float32)
-print('train_data_shape:', data.shape)
-print('train_label_shape:', label.shape)
+def onnx_loss(a,model,target):
+    '''
+    input:
+    a graph node dictionary
+    model: graph model
+    target: label
 
-inputs = Tensor(data=data)
-target = Tensor(data=label)
-
-
-a,model = sonnx.onnx_model_init(inputs,'pytorch.onnx')
-
-sgd = optimizer.SGD(0.00)
-
-# training process
-for epoch in range(1):
-    #loss = sonnx.onnx_loss(a,model,target)
+    load other nodes of onnx
+    '''
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
             pass
@@ -79,7 +85,6 @@ for epoch in range(1):
                 a[str(i.output[0])] = autograd.add(a[str(i.input[0])],a[str(i.input[1])])
         elif (i.op_type == 'MatMul'):
             a[str(i.output[0])] = autograd.matmul(a[str(i.input[0])], a[str(i.input[1])])
-    loss = autograd.cross_entropy(a['Y'], target)
-    if (epoch % 100 == 0):
-        print('training loss = ', tensor.to_numpy(loss)[0])
 
+    loss = autograd.cross_entropy(a['Y'], target)
+    return loss
