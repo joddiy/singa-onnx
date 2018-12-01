@@ -55,8 +55,8 @@ inputs = Tensor(data=data)
 target = Tensor(data=label)
 
 
-a,model = sonnx.onnx_model_init(inputs,'pytorch.onnx')
-
+a,model = sonnx.onnx_model_init(inputs,'singa.onnx')
+print('finish init')
 sgd = optimizer.SGD(0.00)
 
 # training process
