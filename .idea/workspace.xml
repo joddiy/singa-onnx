@@ -3,6 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/autograd.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/autograd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/dd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/singa-onnx/mlp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/singa-onnx/mplonnx2singa.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/sonnx.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/sonnx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newmlp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/onnxIn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/onnxOut.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/singa.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/singa.onnx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,16 +22,18 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/singa_onnx$read_onnx_py.coverage" NAME="read-onnx.py Coverage Results" MODIFIED="1541080414480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$autograd__1_.coverage" NAME="autograd (1) Coverage Results" MODIFIED="1541682795153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$mlp.coverage" NAME="mlp Coverage Results" MODIFIED="1543647793228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$parallel.coverage" NAME="parallel Coverage Results" MODIFIED="1543412078597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$sonnx.coverage" NAME="sonnx Coverage Results" MODIFIED="1543395552865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$pytorchMLP_py.coverage" NAME="pytorchMLP.py Coverage Results" MODIFIED="1543397435753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$onnx2singa.coverage" NAME="onnx2singa Coverage Results" MODIFIED="1541127815954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/singa_onnx$autograd__1_.coverage" NAME="autograd (1) Coverage Results" MODIFIED="1541682795153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$newmlp.coverage" NAME="newmlp Coverage Results" MODIFIED="1542594256820" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$cnn_py.coverage" NAME="cnn.py Coverage Results" MODIFIED="1543640954806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$autograd.coverage" NAME="autograd Coverage Results" MODIFIED="1541127820953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$mlponnx2singa_py.coverage" NAME="mlponnx2singa.py Coverage Results" MODIFIED="1543397680153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/singa_onnx$mlp.coverage" NAME="mlp Coverage Results" MODIFIED="1543491389864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/singa_onnx$parallel.coverage" NAME="parallel Coverage Results" MODIFIED="1543412078597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/singa_onnx$Unnamed.coverage" NAME="cnn.py Coverage Results" MODIFIED="1543638380008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/singa_onnx$cnn.coverage" NAME="cnn Coverage Results" MODIFIED="1541136781921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/singa_onnx$sonnx.coverage" NAME="sonnx Coverage Results" MODIFIED="1543395552865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DockerExecCommand">
     <ExecCommand>
@@ -37,14 +49,15 @@
     <session id="-759695332">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
-          <entry key="project.open.time.0" value="6" />
+          <entry key="project.closed" value="13" />
+          <entry key="project.open.time.0" value="7" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -52,24 +65,24 @@
           <entry key="dd" value="1" />
           <entry key="ipynb" value="3" />
           <entry key="pkl" value="1" />
-          <entry key="py" value="88" />
+          <entry key="py" value="99" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IPNB" value="3" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="88" />
+          <entry key="Python" value="99" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="5256" />
+          <entry key="py" value="5937" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="5256" />
+          <entry key="Python" value="5937" />
         </counts>
       </usages-collector>
     </session>
@@ -79,11 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mlp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1675">
-              <caret line="67" column="38" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
-              <folding>
-                <element signature="e#792#816#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-714">
+              <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -91,8 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pytorchMLP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="7" selection-end-column="21" />
+            <state relative-caret-position="460">
+              <caret line="23" column="16" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="16" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
                 <marker date="1543408263091" expanded="true" signature="324:329" ph="..." />
@@ -102,21 +112,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parallel.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mlponnx2singa.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
+            <state relative-caret-position="596">
               <caret line="63" column="34" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="34" />
               <folding>
                 <element signature="e#790#814#0" expanded="true" />
@@ -125,14 +123,56 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sonnx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="148" column="60" selection-start-line="148" selection-start-column="56" selection-end-line="148" selection-end-column="60" />
+            <state relative-caret-position="1269">
+              <caret line="110" column="33" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="33" />
               <folding>
                 <element signature="e#792#823#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="94" column="34" selection-start-line="94" selection-start-column="34" selection-end-line="94" selection-end-column="34" />
+              <folding>
+                <element signature="e#792#823#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1596">
+              <caret line="258" column="27" selection-start-line="258" selection-start-column="24" selection-end-line="258" selection-end-column="27" />
+              <folding>
+                <element signature="e#790#821#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dockersinga/tensor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1807">
+              <caret line="704" column="12" selection-start-line="704" selection-start-column="4" selection-end-line="704" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cnn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1805">
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -148,7 +188,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>b</find>
       <find>add</find>
       <find>add(</find>
       <find>param</find>
@@ -178,6 +217,7 @@
       <find>&quot;Y&quot;</find>
       <find>model</find>
       <find>Y</find>
+      <find>curop</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -194,12 +234,10 @@
         <option value="$USER_HOME$/anaconda3/envs/singa/lib/python3.6/site-packages/singa/autograd.py" />
         <option value="$PROJECT_DIR$/autograd.py" />
         <option value="$PROJECT_DIR$/onnx_model.py" />
-        <option value="$PROJECT_DIR$/cnn.py" />
         <option value="$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/autograd.py" />
         <option value="$PROJECT_DIR$/dockersinga/autograd.py" />
         <option value="$PROJECT_DIR$/dockersinga/singa-onnx/mlp.py" />
         <option value="$PROJECT_DIR$/dockersinga/singa-onnx/mplonnx2singa.py" />
-        <option value="$PROJECT_DIR$/dockersinga/sonnx.py" />
         <option value="$PROJECT_DIR$/onnxIN.py" />
         <option value="$PROJECT_DIR$/onnxIn.py" />
         <option value="$PROJECT_DIR$/onnxOut.py" />
@@ -208,6 +246,8 @@
         <option value="$PROJECT_DIR$/parallel.py" />
         <option value="$PROJECT_DIR$/mlp.py" />
         <option value="$PROJECT_DIR$/sonnx.py" />
+        <option value="$PROJECT_DIR$/cnn.py" />
+        <option value="$PROJECT_DIR$/dockersinga/sonnx.py" />
       </list>
     </option>
   </component>
@@ -238,13 +278,12 @@
             <path>
               <item name="singa-onnx" type="b2602c69:ProjectViewProjectNode" />
               <item name="singa-onnx" type="462c0819:PsiDirectoryNode" />
-              <item name="dockersinga" type="462c0819:PsiDirectoryNode" />
+              <item name="dockerhome" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="singa-onnx" type="b2602c69:ProjectViewProjectNode" />
               <item name="singa-onnx" type="462c0819:PsiDirectoryNode" />
               <item name="dockersinga" type="462c0819:PsiDirectoryNode" />
-              <item name="singa-onnx" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -271,7 +310,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.mlp">
+  <component name="RunManager" selected="Docker.Docker Image">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="singa-onnx" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -316,6 +355,56 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="cnn.py" type="PythonConfigurationType" factoryName="Python">
+      <module name="singa-onnx" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="DockerContainerSettingsRunConfigurationExtension">
+        <option name="envVars">
+          <list />
+        </option>
+        <option name="extraHosts">
+          <list />
+        </option>
+        <option name="links">
+          <list />
+        </option>
+        <option name="networkDisabled" value="false" />
+        <option name="networkMode" value="bridge" />
+        <option name="portBindings">
+          <list />
+        </option>
+        <option name="publishAllPorts" value="false" />
+        <option name="version" value="1" />
+        <option name="volumeBindings">
+          <list>
+            <DockerVolumeBindingImpl>
+              <option name="containerPath" value="/opt/project" />
+              <option name="editable" value="true" />
+              <option name="hostPath" value="$PROJECT_DIR$" />
+              <option name="readOnly" value="false" />
+            </DockerVolumeBindingImpl>
+          </list>
+        </option>
+      </EXTENSION>
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cnn.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="mlp" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="singa-onnx" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -323,9 +412,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="docker://c337134154/singa-onnx:latest/python" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="DockerContainerSettingsRunConfigurationExtension">
@@ -560,11 +649,23 @@
           <option name="JSONFilePath" value="" />
           <option name="command" value="" />
           <option name="commandLineOptions" value="" />
-          <option name="containerName" value="singa-onnx" />
+          <option name="containerName" value="so" />
           <option name="entrypoint" value="" />
           <option name="imageTag" value="c337134154/singa-onnx:latest" />
           <option name="startBrowserSettings">
             <browser url="http://127.0.0.1" />
+          </option>
+          <option name="volumeBindings">
+            <list>
+              <DockerVolumeBindingImpl>
+                <option name="containerPath" value="/usr/local/lib/python2.7/dist-packages/singa/" />
+                <option name="hostPath" value="$PROJECT_DIR$/dockersinga" />
+              </DockerVolumeBindingImpl>
+              <DockerVolumeBindingImpl>
+                <option name="containerPath" value="$PROJECT_DIR$/../../cs/singa-onnx/" />
+                <option name="hostPath" value="$PROJECT_DIR$/dockerhome" />
+              </DockerVolumeBindingImpl>
+            </list>
           </option>
         </settings>
       </deployment>
@@ -575,6 +676,7 @@
       <item itemvalue="Python.read-onnx.py" />
       <item itemvalue="Python.newmlp" />
       <item itemvalue="Python.mlponnx2singa.py" />
+      <item itemvalue="Python.cnn.py" />
       <item itemvalue="Docker.Docker Image" />
       <item itemvalue="Python.mlp" />
       <item itemvalue="Python.autograd (1)" />
@@ -583,11 +685,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mlp" />
-        <item itemvalue="Python.parallel" />
         <item itemvalue="Docker.Docker Image" />
-        <item itemvalue="Python.sonnx" />
-        <item itemvalue="Python.autograd (1)" />
+        <item itemvalue="Docker.Docker Image" />
+        <item itemvalue="Docker.Docker Image" />
+        <item itemvalue="Docker.Docker Image" />
+        <item itemvalue="Docker.Docker Image" />
       </list>
     </recent_temporary>
   </component>
@@ -614,10 +716,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49920255" visible="true" weight="0.15201768" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49920255" visible="true" weight="0.15699281" />
       <window_info id="Structure" order="1" sideWeight="0.50079745" side_tool="true" weight="0.14206745" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -627,10 +729,10 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3294979" />
-      <window_info anchor="bottom" id="Docker" order="7" weight="0.21966527" />
+      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.4997236" weight="0.17154811" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5002764" side_tool="true" weight="0.21966527" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.3294979" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -714,24 +816,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dockersinga/singa-onnx/singonnx.pkl" />
     <entry file="file://$PROJECT_DIR$/dockersinga/singa-onnx/onnx_model.py" />
-    <entry file="file://$PROJECT_DIR$/newmlp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1204">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/read-onnx.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="18" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -749,9 +837,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/dd">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/dd" />
     <entry file="file://$PROJECT_DIR$/autograd.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -759,91 +845,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/singa-onnx/mlp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2014">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/singa-onnx/mplonnx2singa.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1518">
-          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6045">
-          <caret line="292" column="28" lean-forward="true" selection-start-line="292" selection-start-column="28" selection-end-line="292" selection-end-column="28" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/sonnx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="57" selection-start-line="57" selection-end-line="57" selection-end-column="18" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/singa-onnx/mlp.py" />
+    <entry file="file://$PROJECT_DIR$/dockersinga/singa-onnx/mplonnx2singa.py" />
     <entry file="file://$PROJECT_DIR$/onnx_model.py" />
     <entry file="file://$PROJECT_DIR$/onnxIN.py" />
-    <entry file="file://$PROJECT_DIR$/onnxOut.py">
+    <entry file="file://$PROJECT_DIR$/onnxOut.py" />
+    <entry file="file://$PROJECT_DIR$/onnxIn.py" />
+    <entry file="file://$PROJECT_DIR$/newmlp.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/tensor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-193">
-          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/onnxIn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="68" column="28" lean-forward="true" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1675">
-          <caret line="67" column="38" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
-          <folding>
-            <element signature="e#792#816#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pytorchMLP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="7" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <marker date="1543408263091" expanded="true" signature="324:329" ph="..." />
-          </folding>
+        <state relative-caret-position="217">
+          <caret line="176" selection-start-line="176" selection-end-line="176" />
         </state>
       </provider>
     </entry>
@@ -857,9 +869,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/sonnx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-242">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pytorchMLP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <marker date="1543408263091" expanded="true" signature="324:329" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mlponnx2singa.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
+        <state relative-caret-position="596">
           <caret line="63" column="34" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="34" />
           <folding>
             <element signature="e#790#814#0" expanded="true" />
@@ -867,10 +897,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1805">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="839" column="8" selection-start-line="839" selection-start-column="8" selection-end-line="839" selection-end-column="8" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/tensor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1807">
+          <caret line="704" column="12" selection-start-line="704" selection-start-column="4" selection-end-line="704" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1596">
+          <caret line="258" column="27" selection-start-line="258" selection-start-column="24" selection-end-line="258" selection-end-column="27" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-714">
+          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sonnx.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="148" column="60" selection-start-line="148" selection-start-column="56" selection-end-line="148" selection-end-column="60" />
+        <state relative-caret-position="1269">
+          <caret line="110" column="33" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="33" />
+          <folding>
+            <element signature="e#792#823#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="94" column="34" selection-start-line="94" selection-start-column="34" selection-end-line="94" selection-end-column="34" />
           <folding>
             <element signature="e#792#823#0" expanded="true" />
           </folding>

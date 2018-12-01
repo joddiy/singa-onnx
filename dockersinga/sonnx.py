@@ -39,6 +39,7 @@ from singa.proto import model_pb2
 from . import singa_wrap as singa
 #from .tensor import einsum
 from autograd import *
+from singa.tensor import to_numpy
 
 def onnx_model_init(inputs,name):
     '''
@@ -50,13 +51,12 @@ def onnx_model_init(inputs,name):
      a graph node dictionary
      model: graph model
     '''
-    f = open(name, 'rb')
-    model = pickle.load(f)
+    model = onnx.load('singa.onnx')
     a = {}
     a['X'] = inputs
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
-            a[str(i.output[0])] = tensor.from_numpy(numpy_helper.to_array(i.attribute[0].t))
+            a[str(i.output[0])] = tensor.from_numpy(onnx.numpy_helper.to_array(i.attribute[0].t))
             a[str(i.output[0])].stores_grad = True
     return a,model
 
@@ -75,6 +75,8 @@ def onnx_loss(a,model,target):
             # do nothing
         if (i.op_type == 'LeakyRelu'):
             a[str(i.output[0])] = autograd.relu(a[str(i.input[0])])
+        elif (i.op_type == 'Relu'):
+            a[str(i.output[0])] = autograd.relu(a[str(i.input[0])])
         elif (i.op_type == 'Softmax'):
             a[str(i.output[0])] = autograd.softmax(a[str(i.input[0])])
         elif (i.op_type == 'Add'):
@@ -90,20 +92,18 @@ def onnx_loss(a,model,target):
 
 
 
-def get_onnx_model(y, dy=None):
+def get_onnx_model(y,inputs,target):
     '''
 	get onnx model from singa computational graph
 	Args:
         y: a Tensor instance, usually the loss
-        dy: a number or a Tensor instance, for the gradient of the
-            objective/loss w.r.t y, usually 1.0
         Return:
         loss for onnx model
     '''
     ######################
 
-    X = helper.make_tensor_value_info('X', TensorProto.FLOAT, [1, 2])
-    Y = helper.make_tensor_value_info('Y', TensorProto.FLOAT, [1, 2])
+    X = helper.make_tensor_value_info('X', TensorProto.FLOAT,inputs.shape)
+    Y = helper.make_tensor_value_info('Y', TensorProto.FLOAT,target.shape)
     node = []
     ######################
 
@@ -112,92 +112,47 @@ def get_onnx_model(y, dy=None):
     assert y.size() == 1, 'y must be a Tensor with a single value;' \
                           'size of y is % d' % y.size()
 
-    # by default the dy is a tensor with 1.0 for each sample;
-    if dy is None:
-        dy = float(1.0)
-    elif isinstance(dy, Tensor):
-        dy = dy.data
-    else:
-        dy = float(dy)
 
-    # ready is a queue of (operation, dy list)
-    ready = deque([(y.creator, (dy,))])
-    not_ready = {}  # mapping: op->[dy]
-    gradients = {}  # mapping: x->dx if x.stores_grad
-    if y.stores_grad:
-        gradients[y] = dy
+    ready = deque([y.creator])
 
-    supportOp = set(['LeakyRelu','Softmax','Add','MatMul','Flatten'])
-
+    supportOp = set(['ReLU','SoftMax','Add','AddBias','Matmul','Flatten'])
+    singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu'}
+    lastop=True
     while len(ready) > 0:
-        op, dys = ready.pop()
+        op = ready.pop()
         if not op.requires_grad or isinstance(op, Dummy):
             continue
-        # if not isinstance(op, tensor.Dummy):
-        dxs = op._do_backward(*dys)
-        ##############################
-        curname = str(op).split('.')[-1].split(' ')[0]
-        prefname = str(op.src[0][0]).split('.')[-1].split(' ')[0]
+        curop = str(op).split('.')[-1].split(' ')[0]
         cur = str(op)
         pre = [str(i[0]) for i in op.src]
-        if op.param['name'] in supportOp:
+        preop = [str(i[0]).split('.')[-1].split(' ')[0] for i in op.src]
+        prefname = preop[0]
+        #print(pre)
+        #print(cur)
+        #print(preop)
+        #print(curop)
+        if curop in supportOp:
             if (prefname == 'Dummy'): pre[0] = 'X'
-            if (op.param['name'] == 'Softmax'):
-                node = [onnx.helper.make_node('Softmax', inputs=pre, outputs=['Y'], )] + node
+            if (curop in singatoonnx): curop = singatoonnx[curop]
+            if (lastop):
+                node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'], )] + node
+                lastop = False
             else:
-                node = [onnx.helper.make_node(op.param['name'], inputs=pre, outputs=[cur], )] + node
+                node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], )] + node
                 num = 1
-                if 'b' in op.param:
-                    b = ctensor2numpy(op.param['b'])
-                    node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
-                                                  value=numpy_helper.from_array(b))] + node
-                    num+=1
-                if 'w' in op.param:
-                    w = ctensor2numpy(op.param['w'])
-                    node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
-                                                  value=numpy_helper.from_array(w))] + node
-                    num+=1
-        ##################################
-        # TODO src and dx must match
-        assert len(op.src) == len(dxs), \
-            'the number of src ops (=%d) and dx (=%d) not match' \
-            % (len(op.src), len(dxs))
-        for (src_op, x_id, y, y_stores_grad), dx in zip(op.src, dxs):
-            # prefix x is w.r.t op; prefix y is w.r.t src_op.
-            # x_id is the python id of one input arg of src_op, denoted as x.
-            # y_idx (below) is the index of x among the outputs of src_op.
-            # not_ready[src_op][y_idx] records the intermediate gradient
-            # of the y_idx'th output of src_op. 'intermediate gradient'
-            # indicates that if this output is used in multiple children
-            # operations, then we have to add the graident (dx) from all these
-            # children operations. When src_op is ready, it means that
-            # the gradient of all its outputs are available, i.e. all children
-            # operations have been backwarded.
-            # y is None if y.stores_grad is false; otherwise it is a Tensor
-            y_idx = src_op.y_id2idx[x_id]
-            if src_op not in not_ready:
-                # src_op may have mulitple outputs
-                not_ready[src_op] = [None for _ in src_op.y_id2idx]
-                not_ready[src_op][y_idx] = dx
-            else:
-                pass
-                #dxs = not_ready[src_op]
-                #if dxs[y_idx] is None:
-                #    dxs[y_idx] = dx
-                #else:
-                    # add the gradient from another children operation that
-                    # uses y_idx'th output of src_op as input arg
-                #    dxs[y_idx] += dx
-            if y_stores_grad:
-                pass
+                while(True):
+                    if (len(pre) > num and preop[num] == 'Dummy' and op.src[num][2] is not None):
+                        dummy = to_numpy(op.src[num][2])
+                        node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
+                                                      value=numpy_helper.from_array(dummy))] + node
+                        num+=1
+                    else:break
+        for (src_op, x_id, y, y_stores_grad) in op.src:
             dependency[src_op] -= 1
             if src_op.requires_grad is True:
                 if dependency[src_op] == 0:
-                    if not isinstance(src_op, Dummy):
-                        ready.append((src_op, not_ready[src_op]))
-                    del not_ready[src_op]
-    ###############################################
+                    if not isinstance(src_op, Dummy):ready.append((src_op))
     model_def = helper.make_model(helper.make_graph(node, "t", [X], [Y], ), producer_name='o')
     onnx.checker.check_model(model_def)
-    ###############################################
     return model_def
+

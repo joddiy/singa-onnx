@@ -17,53 +17,127 @@
 # under the License.
 #
 
-from singa import tensor
-from singa.tensor import Tensor
-from singa import autograd
-from singa import optimizer
-
 import numpy as np
-#import caffe2.python.onnx.backend as backend
-import pickle
-autograd.training = True
+import argparse
+import os
 
-data = np.ones((2,3,4,4),dtype=np.float32)
-label = np.array([[0.0,1.0],[1.0,0.0]],dtype=np.float32)
-
-print('train_data_shape:', data.shape)
-print('train_label_shape:', label.shape)
-
-inputs = Tensor(data=data)
-target = Tensor(data=label)
-
-#conv = autograd.Conv2d(3, 4, 3, padding=1, bias=True)
-#pooling = autograd.MaxPool2d(2, 2, padding=0)
-linear = autograd.Linear(32 * 28 * 28, 2)
+from singa import device
+from singa import tensor
+from singa import autograd
+from singa import opt
 
 
+def load_data(path):
+    f = np.load(path)
+    x_train, y_train = f['x_train'], f['y_train']
+    x_test, y_test = f['x_test'], f['y_test']
+    f.close()
+    return (x_train, y_train), (x_test, y_test)
 
-sgd = optimizer.SGD(0.00)
 
-# training process
-for i in range(1):
-    #x = conv(inputs)
-    #x = autograd.max_pool_2d(inputs,2, 2, padding=0)
-    x = autograd.flatten(inputs)
-    x = linear(x)
-    x = autograd.soft_max(x)
-    loss = autograd.cross_entropy(x, target)
-    gradient,model = autograd.backward(loss)
-    for p, gp in gradient.items():
-        gp.reshape(p.shape)
-        #print()
-        #gp = gp.reshape(p.shape)
-        #print(gp.shape)
-        sgd.apply(0, gp, p, '')
-    if (i % 100 == 0):
-        print('training loss = ', tensor.to_numpy(loss)[0])
+def to_categorical(y, num_classes):
+    '''
+    Converts a class vector (integers) to binary class matrix.
+    Args
+        y: class vector to be converted into a matrix
+            (integers from 0 to num_classes).
+        num_classes: total number of classes.
+    Return
+        A binary matrix representation of the input.
+    '''
+    y = np.array(y, dtype='int')
+    n = y.shape[0]
+    categorical = np.zeros((n, num_classes))
+    categorical[np.arange(n), y] = 1
+    categorical = categorical.astype(np.float32)
+    return categorical
 
-    #with open('singonnx.pkl', 'wb') as output:
-    #    pickle.dump(model,output)
-    #rep = backend.prepare(model, device="CPU")  # or "CPU"
-    #outputs = rep.run(np.ones((2, 2)).astype(np.float32))
-    #print(outputs[0])
+
+def preprocess(data):
+    data = data.astype(np.float32)
+    data /= 255
+    data = np.expand_dims(data, axis=1)
+    return data
+
+
+def accuracy(pred, target):
+    y = np.argmax(pred, axis=1)
+    t = np.argmax(target, axis=1)
+    a = y == t
+    return np.array(a, 'int').sum() / float(len(t))
+
+
+if __name__ == '__main__':
+
+
+    file_path = './mnist/mnist.npz'
+    use_cpu = 'store_true'
+
+    print(file_path)
+    assert os.path.exists(file_path), \
+        'Pls download the MNIST dataset from https://s3.amazonaws.com/img-datasets/mnist.npz'
+
+    if use_cpu:
+        print('Using CPU')
+        dev = device.get_default_device()
+    else:
+        print('Using GPU')
+        dev = device.create_cuda_gpu()
+
+    train, test = load_data(file_path)
+    print(train[0].shape)
+    batch_number = 600
+    num_classes = 10
+    epochs = 1
+
+    sgd = opt.SGD(lr=0.01)
+
+    x_train = preprocess(train[0])
+    y_train = to_categorical(train[1], num_classes)
+
+    x_test = preprocess(test[0])
+    y_test = to_categorical(test[1], num_classes)
+    print('the shape of training data is', x_train.shape)
+    print('the shape of training label is', y_train.shape)
+    print('the shape of testing data is', x_test.shape)
+    print('the shape of testing label is', y_test.shape)
+
+    # operations initialization
+    conv1 = autograd.Conv2d(1, 32, 3, padding=1, bias=False)
+    conv21 = autograd.Conv2d(32, 16, 3, padding=1)
+    conv22 = autograd.Conv2d(32, 16, 3, padding=1)
+    linear = autograd.Linear(32 * 28 * 28, 10)
+
+    def forward(x, t):
+        y = conv1(x)
+        y = autograd.relu(y)
+        y1 = conv21(y)
+        y2 = conv22(y)
+        y = autograd.cat((y1, y2), 1)
+        y = autograd.relu(y)
+        print(y.shape)
+        y = autograd.flatten(y)
+        print(y.shape)
+        y = linear(y)
+        loss = autograd.softmax_cross_entropy(y, t)
+        return loss, y
+
+    autograd.training = True
+    for epoch in range(epochs):
+        for i in range(batch_number):
+            inputs = tensor.Tensor(device=dev, data=x_train[
+                                   i * 100:(1 + i) * 100], stores_grad=False)
+            targets = tensor.Tensor(device=dev, data=y_train[
+                                    i * 100:(1 + i) * 100], requires_grad=False, stores_grad=False)
+
+            loss, y = forward(inputs, targets)
+
+            accuracy_rate = accuracy(tensor.to_numpy(y),
+                                     tensor.to_numpy(targets))
+            if (i % 5 == 0):
+                print('accuracy is:', accuracy_rate, 'loss is:',
+                      tensor.to_numpy(loss)[0])
+            for p, gp in autograd.backward(loss):
+                sgd.update(p, gp)
+            sgd.step()
+            break
