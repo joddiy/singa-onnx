@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerhome/singa.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/singa.onnx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlponnx2singa.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlponnx2singa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sonnx.py" beforeDir="false" afterPath="$PROJECT_DIR$/sonnx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/sonnx.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/sonnx.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,19 +81,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pytorchMLP.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="23" column="16" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#22#0" expanded="true" />
-                <marker date="1543408263091" expanded="true" signature="324:329" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/mplonnx2singa.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="253">
@@ -114,22 +99,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sonnx.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="853">
-              <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
-              <folding>
-                <element signature="e#792#823#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="111" lean-forward="true" selection-end-line="153" />
+            <state relative-caret-position="326">
+              <caret line="120" column="8" lean-forward="true" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
               <folding>
                 <element signature="e#792#823#0" expanded="true" />
               </folding>
@@ -140,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="753" column="49" lean-forward="true" selection-start-line="753" selection-start-column="49" selection-end-line="753" selection-end-column="49" />
+            <state relative-caret-position="1591">
+              <caret line="767" column="26" lean-forward="true" selection-start-line="767" selection-start-column="26" selection-end-line="767" selection-end-column="26" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
@@ -234,11 +207,11 @@
         <option value="$PROJECT_DIR$/parallel.py" />
         <option value="$PROJECT_DIR$/mlp.py" />
         <option value="$PROJECT_DIR$/cnn.py" />
-        <option value="$PROJECT_DIR$/dockersinga/sonnx.py" />
         <option value="$PROJECT_DIR$/dockersinga/autograd.py" />
         <option value="$PROJECT_DIR$/mlponnx2singa.py" />
         <option value="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" />
         <option value="$PROJECT_DIR$/sonnx.py" />
+        <option value="$PROJECT_DIR$/dockersinga/sonnx.py" />
       </list>
     </option>
   </component>
@@ -891,16 +864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="753" column="49" lean-forward="true" selection-start-line="753" selection-start-column="49" selection-end-line="753" selection-end-column="49" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mlponnx2singa.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="571">
@@ -915,13 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-714">
           <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1221">
-          <caret line="102" column="23" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -943,20 +899,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
+    <entry file="file://$PROJECT_DIR$/sonnx.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="111" lean-forward="true" selection-end-line="153" />
+        <state relative-caret-position="853">
+          <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
           <folding>
             <element signature="e#792#823#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sonnx.py">
+    <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="853">
-          <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
+        <state relative-caret-position="1221">
+          <caret line="102" column="23" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1591">
+          <caret line="767" column="26" lean-forward="true" selection-start-line="767" selection-start-column="26" selection-end-line="767" selection-end-column="26" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="120" column="8" lean-forward="true" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
           <folding>
             <element signature="e#792#823#0" expanded="true" />
           </folding>
