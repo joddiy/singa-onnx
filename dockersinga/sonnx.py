@@ -100,18 +100,13 @@ def get_onnx_model(y,inputs,target):
         Return:
         loss for onnx model
     '''
-    ######################
-
     X = helper.make_tensor_value_info('X', TensorProto.FLOAT,inputs.shape)
     Y = helper.make_tensor_value_info('Y', TensorProto.FLOAT,target.shape)
     node = []
-    ######################
-
     dependency = infer_dependency(y.creator)
 
     assert y.size() == 1, 'y must be a Tensor with a single value;' \
                           'size of y is % d' % y.size()
-
 
     ready = deque([y.creator])
 
