@@ -60,6 +60,43 @@ def onnx_model_init(inputs,name):
             a[str(i.output[0])].stores_grad = True
     return a,model
 
+def find_add(output,model):
+    ans = []
+    for idx, i in enumerate(model.graph.node):
+        for j in i.input:
+            if j == output and i.op_type == 'Add':
+                ans.append(idx)
+    return ans
+
+def find_shape(input,model):
+    for i in model.graph.node:
+        if(i.op_type == 'Constant' and i.output[0]==input):
+            return onnx.numpy_helper.to_array(i.attribute[0].t).shape
+
+
+def combine_node(a,model):
+    for idx,i in enumerate(model.graph.node):
+        if (i.op_type == 'MatMul'):
+            addlist = find_add(i.output[0],model)
+            if(len(addlist) > 1 or len(addlist)==0):continue
+            addidx = addlist[0]
+            if(i.name == "not_requires_grad" and model.graph.node[addidx].name == "not_requires_grad"):continue
+            model.graph.node[idx].output[0] = model.graph.node[addidx].output[0]
+            model.graph.node[idx].input.append(model.graph.node[addidx].input[1])
+            model.graph.node[idx].op_type = 'Linear'
+            model.graph.node[addidx].op_type='removed'
+
+    linear={}
+    for i in model.graph.node:
+        if (i.op_type == 'Linear'):
+            shape = find_shape(i.input[1],model)
+            linear[str(i.output[0])] = autograd.Linear(shape[0], shape[1])
+            linear[str(i.output[0])].w = a[str(i.input[1])]
+            linear[str(i.output[0])].b = a[str(i.input[2])]
+
+
+    return linear,model
+
 def onnx_loss(a,model,target):
     '''
     input:
@@ -69,6 +106,8 @@ def onnx_loss(a,model,target):
 
     load other nodes of onnx
     '''
+
+    linear, model = combine_node(a,model)
     for i in model.graph.node:
         if (i.op_type == 'Constant'):
             pass
@@ -81,6 +120,8 @@ def onnx_loss(a,model,target):
             a[str(i.output[0])] = autograd.add(a[str(i.input[0])],a[str(i.input[1])])
         elif (i.op_type == 'MatMul'):
             a[str(i.output[0])] = autograd.matmul(a[str(i.input[0])], a[str(i.input[1])])
+        elif (i.op_type == 'Linear'):
+            a[str(i.output[0])] = linear[str(i.output[0])](a[str(i.input[0])])
 
     loss = autograd.cross_entropy(a['Y'], target)
     return loss
@@ -110,25 +151,22 @@ def get_onnx_model(y,inputs,target):
     lastop=True
     while len(ready) > 0:
         op = ready.pop()
-        if not op.requires_grad or isinstance(op, Dummy):
-            continue
+        if isinstance(op, Dummy):continue
         curop = str(op).split('.')[-1].split(' ')[0]
         cur = str(op)
         pre = [str(i[0]) for i in op.src]
         preop = [str(i[0]).split('.')[-1].split(' ')[0] for i in op.src]
         prefname = preop[0]
-        #print(pre)
-        print(cur)
-        #print(preop)
-        #print(curop)
         if curop in supportOp:
+            if not op.requires_grad:name = "not_requires_grad"
+            else:name=''
             if (prefname == 'Dummy'): pre[0] = 'X'
             if (curop in singatoonnx): curop = singatoonnx[curop]
             if (lastop):
-                node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'], )] + node
+                node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'],name=name )] + node
                 lastop = False
             else:
-                node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], )] + node
+                node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur],name=name )] + node
                 num = 1
                 while(True):
                     if (len(pre) > num and preop[num] == 'Dummy' and op.src[num][2] is not None):
@@ -137,6 +175,7 @@ def get_onnx_model(y,inputs,target):
                                                       value=numpy_helper.from_array(dummy))] + node
                         num+=1
                     else:break
+        if not op.requires_grad:continue
         for (src_op, x_id, y, y_stores_grad) in op.src:
             dependency[src_op] -= 1
             if src_op.requires_grad is True:

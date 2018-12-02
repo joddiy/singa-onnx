@@ -72,7 +72,7 @@ def accuracy(pred, target):
 if __name__ == '__main__':
 
 
-    file_path = './mnist/mnist.npz'
+    file_path = 'mnist.npz'
     use_cpu = 'store_true'
 
     print(file_path)
@@ -132,7 +132,7 @@ if __name__ == '__main__':
 
             loss, y = forward(inputs, targets)
 
-            model = sonnx.get_onnx_model(loss, inputs, target)
+            model = sonnx.get_onnx_model(loss, inputs, targets)
             onnx.save(model, 'singa.onnx')
 
             accuracy_rate = accuracy(tensor.to_numpy(y),
