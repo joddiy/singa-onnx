@@ -99,5 +99,5 @@ for i in range(1):
 
 model=sonnx.get_onnx_model(loss,inputs,target)
 
-onnx.save(model, 'singa.onnx')
+onnx.save(model, 'mlp.onnx')
 
