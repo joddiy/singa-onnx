@@ -76,6 +76,7 @@ def find_shape(input, model):
             return onnx.numpy_helper.to_array(i.attribute[0].t).shape
 
 
+
 def combine_node(modeldic, model):
     for idx, i in enumerate(model.graph.node):
         if (i.op_type == 'MatMul'):
@@ -93,6 +94,14 @@ def combine_node(modeldic, model):
         if (i.op_type == 'Linear'):
             shape = find_shape(i.input[1], model)
             layer[str(i.output[0])] = autograd.Linear(shape[0], shape[1])
+            layer[str(i.output[0])].set_params(W=modeldic[str(i.input[1])])
+            layer[str(i.output[0])].set_params(b=modeldic[str(i.input[2])])
+
+    for i in model.graph.node:
+        if (i.op_type == 'Conv'):
+            shape = find_shape(i.input[1], model)
+            layer[str(i.output[0])] = autograd.Conv2d(shape[1], shape[0],shape[2],padding=int(i.attribute[0].ints[0]))
+            print(shape)
             layer[str(i.output[0])].set_params(W=modeldic[str(i.input[1])])
             layer[str(i.output[0])].set_params(b=modeldic[str(i.input[2])])
 
@@ -129,8 +138,16 @@ class ONNXm(Layer):
                 oper[str(i.output[0])] = autograd.matmul(oper[str(i.input[0])], oper[str(i.input[1])])
             elif (i.op_type == 'Linear'):
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
+            elif (i.op_type == 'Conv'):
+                #print(tensor.to_numpy(oper[str(i.input[0])]).shape)
+                #print(i.output[0])
+                oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
+            elif (i.op_type == 'Flatten'):
+                oper[str(i.output[0])] = autograd.flatten(oper[str(i.input[0])])
+            elif(i.op_type == 'Concat'):
+                oper[str(i.output[0])] = autograd.cat((oper[str(i.input[0])], oper[str(i.input[1])]),int(i.attribute[0].i))
 
-
+        print('finish farward')
         return oper['Y']
 
 
@@ -182,7 +199,8 @@ def get_onnx_model(y,inputs,target):
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name,axis=int(op.axis))] + node
                 elif(isinstance(op,_Conv2d)):
                     pads=[op.handle.padding_h,op.handle.padding_h,op.handle.padding_h,op.handle.padding_h]
-                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name, pads=pads)] + node
+                    stride=[op.handle.stride_h,op.handle.stride_w]
+                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name, pads=pads,strides=stride)] + node
                 else:
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur],name=name )] + node
             num = 1
