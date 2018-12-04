@@ -180,7 +180,7 @@ def get_onnx_model(y,inputs,target):
             else:
                 from autograd import _Conv2d
                 if (isinstance(op, _Conv2d)):
-                    print('con2d')
+                    print('con2d',op.handle.padding_h)
                 if(isinstance(op,Concat)):
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name,axis=int(op.axis))] + node
                 else:

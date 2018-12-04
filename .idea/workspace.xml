@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerhome/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/cnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerhome/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerhome/cnn.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/cnn.onnx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerhome/mlp.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mlp.onnx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerhome/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerhome/singa.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/singa.onnx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockersinga/autograd.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/autograd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockersinga/sonnx.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/sonnx.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -76,12 +70,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7517" />
+          <entry key="py" value="7535" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7517" />
+          <entry key="Python" value="7535" />
         </counts>
       </usages-collector>
     </session>
@@ -100,7 +94,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1851">
+            <state relative-caret-position="126">
               <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
               <folding>
                 <element signature="e#792#816#0" expanded="true" />
@@ -112,12 +106,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="182" column="33" selection-start-line="182" selection-start-column="33" selection-end-line="182" selection-end-column="33" />
+            <state relative-caret-position="575">
+              <caret line="182" column="53" selection-start-line="182" selection-start-column="53" selection-end-line="182" selection-end-column="53" />
               <folding>
                 <element signature="e#792#823#0" expanded="true" />
-                <marker date="1543907419409" expanded="true" signature="3333:4652" ph="..." />
-                <marker date="1543907419409" expanded="true" signature="4652:4705" ph="..." />
+                <marker date="1543911813391" expanded="true" signature="3333:4652" ph="..." />
+                <marker date="1543911813391" expanded="true" signature="4652:4705" ph="..." />
               </folding>
             </state>
           </provider>
@@ -126,7 +120,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/cnn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
+            <state relative-caret-position="565">
               <caret line="107" column="25" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
             </state>
           </provider>
@@ -135,8 +129,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="1315" column="22" lean-forward="true" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
+            <state relative-caret-position="3365">
+              <caret line="860" column="19" selection-start-line="860" selection-start-column="13" selection-end-line="860" selection-end-column="19" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
@@ -145,18 +139,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dockersinga/singa_wrap.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="1951" column="34" selection-start-line="1951" selection-start-column="25" selection-end-line="1951" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/linear.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="685">
+            <state relative-caret-position="442">
               <caret line="77" column="32" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="32" />
               <folding>
                 <element signature="e#792#816#0" expanded="true" />
@@ -203,9 +188,9 @@
       <find>Concat</find>
       <find>conv</find>
       <find>self.handle</find>
-      <find>handle</find>
-      <find>linear</find>
       <find>padding</find>
+      <find>linear</find>
+      <find>handle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -887,32 +872,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/linear.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="77" column="32" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="32" />
-          <folding>
-            <element signature="e#792#816#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/autograd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="723" column="8" selection-start-line="723" selection-start-column="8" selection-end-line="723" selection-end-column="8" />
           <folding>
             <element signature="e#790#821#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1851">
-          <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
-          <folding>
-            <element signature="e#792#816#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -924,23 +889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="107" column="25" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="1315" column="22" lean-forward="true" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dockersinga/singa_wrap.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
@@ -948,14 +896,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dockerhome/linear.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="77" column="32" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="32" />
+          <folding>
+            <element signature="e#792#816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
+          <folding>
+            <element signature="e#792#816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerhome/cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="107" column="25" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3365">
+          <caret line="860" column="19" selection-start-line="860" selection-start-column="13" selection-end-line="860" selection-end-column="19" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="182" column="33" selection-start-line="182" selection-start-column="33" selection-end-line="182" selection-end-column="33" />
+        <state relative-caret-position="575">
+          <caret line="182" column="53" selection-start-line="182" selection-start-column="53" selection-end-line="182" selection-end-column="53" />
           <folding>
             <element signature="e#792#823#0" expanded="true" />
-            <marker date="1543907419409" expanded="true" signature="3333:4652" ph="..." />
-            <marker date="1543907419409" expanded="true" signature="4652:4705" ph="..." />
+            <marker date="1543911813391" expanded="true" signature="3333:4652" ph="..." />
+            <marker date="1543911813391" expanded="true" signature="4652:4705" ph="..." />
           </folding>
         </state>
       </provider>
