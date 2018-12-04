@@ -1957,6 +1957,30 @@ class ConvHandle(_object):
     __swig_getmethods__["batchsize"] = _singa_wrap.ConvHandle_batchsize_get
     if _newclass:
         batchsize = _swig_property(_singa_wrap.ConvHandle_batchsize_get, _singa_wrap.ConvHandle_batchsize_set)
+    __swig_setmethods__["stride_h"] = _singa_wrap.ConvHandle_stride_h_set
+    __swig_getmethods__["stride_h"] = _singa_wrap.ConvHandle_stride_h_get
+    if _newclass:
+        stride_h = _swig_property(_singa_wrap.ConvHandle_stride_h_get, _singa_wrap.ConvHandle_stride_h_set)
+    __swig_setmethods__["stride_w"] = _singa_wrap.ConvHandle_stride_w_set
+    __swig_getmethods__["stride_w"] = _singa_wrap.ConvHandle_stride_w_get
+    if _newclass:
+        stride_w = _swig_property(_singa_wrap.ConvHandle_stride_w_get, _singa_wrap.ConvHandle_stride_w_set)
+    __swig_setmethods__["padding_h"] = _singa_wrap.ConvHandle_padding_h_set
+    __swig_getmethods__["padding_h"] = _singa_wrap.ConvHandle_padding_h_get
+    if _newclass:
+        padding_h = _swig_property(_singa_wrap.ConvHandle_padding_h_get, _singa_wrap.ConvHandle_padding_h_set)
+    __swig_setmethods__["padding_w"] = _singa_wrap.ConvHandle_padding_w_set
+    __swig_getmethods__["padding_w"] = _singa_wrap.ConvHandle_padding_w_get
+    if _newclass:
+        padding_w = _swig_property(_singa_wrap.ConvHandle_padding_w_get, _singa_wrap.ConvHandle_padding_w_set)
+    __swig_setmethods__["pad_w"] = _singa_wrap.ConvHandle_pad_w_set
+    __swig_getmethods__["pad_w"] = _singa_wrap.ConvHandle_pad_w_get
+    if _newclass:
+        pad_w = _swig_property(_singa_wrap.ConvHandle_pad_w_get, _singa_wrap.ConvHandle_pad_w_set)
+    __swig_setmethods__["pad_h"] = _singa_wrap.ConvHandle_pad_h_set
+    __swig_getmethods__["pad_h"] = _singa_wrap.ConvHandle_pad_h_get
+    if _newclass:
+        pad_h = _swig_property(_singa_wrap.ConvHandle_pad_h_get, _singa_wrap.ConvHandle_pad_h_set)
     __swig_destroy__ = _singa_wrap.delete_ConvHandle
     __del__ = lambda self: None
 ConvHandle_swigregister = _singa_wrap.ConvHandle_swigregister

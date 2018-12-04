@@ -39,7 +39,7 @@ from . import singa_wrap as singa
 #from .tensor import einsum
 from autograd import *
 from singa.tensor import to_numpy
-
+from autograd import _Conv2d
 
 def onnx_model_init(path):
     '''
@@ -178,11 +178,11 @@ def get_onnx_model(y,inputs,target):
                 node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'],name=name )] + node
                 lastop = False
             else:
-                from autograd import _Conv2d
-                if (isinstance(op, _Conv2d)):
-                    print('con2d',op.handle.padding_h)
                 if(isinstance(op,Concat)):
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name,axis=int(op.axis))] + node
+                elif(isinstance(op,_Conv2d)):
+                    pads=[op.handle.padding_h,op.handle.padding_h,op.handle.padding_h,op.handle.padding_h]
+                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name, pads=pads)] + node
                 else:
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur],name=name )] + node
             num = 1
@@ -202,4 +202,5 @@ def get_onnx_model(y,inputs,target):
     model_def = helper.make_model(helper.make_graph(node, "t", [X], [Y], ), producer_name='o')
     onnx.checker.check_model(model_def)
     return model_def
+
 

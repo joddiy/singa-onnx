@@ -142,5 +142,4 @@ if __name__ == '__main__':
                       tensor.to_numpy(loss)[0])
             for p, gp in autograd.backward(loss):
                 sgd.update(p, gp)
-            sgd.step()
             break

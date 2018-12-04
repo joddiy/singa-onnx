@@ -472,9 +472,9 @@ class Tensor(object):
             x (float or Tensor):
         '''
         if isinstance(x, Tensor):
-            self.data /= x.data
+            self.data *= 1/x.data
         else:
-            self.data /= float(x)
+            self.data *= 1/float(x)
         return self
 
     '''
@@ -638,7 +638,7 @@ def reshape(tensor, shape):
     Returns:
         the new Tensor
     '''
-    return _call_singa_func(singa.Reshape, tensor.data, shape)
+    return _call_singa_func(singa.Reshape, t.data, s)
 
 
 def transpose(t, axes=None):
@@ -1333,8 +1333,8 @@ def tensordot(A, B, axes=2):
 
     A = transpose(A, newaxes_a)
     B = transpose(B, newaxes_b)
-    at = reshape(A, newshape_a)
-    bt = reshape(B, newshape_b)
+    at = Reshape(A, newshape_a)
+    bt = Reshape(B, newshape_b)
 
     res = mult(at, bt)
     if len(olda + oldb) == 0:

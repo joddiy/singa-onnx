@@ -72,7 +72,7 @@ def accuracy(pred, target):
 if __name__ == '__main__':
 
 
-    file_path = './mnist/mnist.npz'
+    file_path = 'mnist.npz'
     use_cpu = 'store_true'
 
     print(file_path)
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     print('the shape of testing label is', y_test.shape)
 
     # operations initialization
-    conv1 = autograd.Conv2d(1, 32, 3, padding=1, bias=False)
+    conv1 = autograd.Conv2d(1, 32, 3, padding=1)
     conv21 = autograd.Conv2d(32, 16, 3, padding=1)
     conv22 = autograd.Conv2d(32, 16, 3, padding=1)
     linear = autograd.Linear(32 * 28 * 28, 10)
@@ -132,8 +132,8 @@ if __name__ == '__main__':
 
             loss, y = forward(inputs, targets)
 
-            model = sonnx.get_onnx_model(loss, inputs, target)
-            onnx.save(model, 'singa.onnx')
+            model = sonnx.get_onnx_model(loss, inputs, targets)
+            onnx.save(model, 'cnn.onnx')
 
             accuracy_rate = accuracy(tensor.to_numpy(y),
                                      tensor.to_numpy(targets))

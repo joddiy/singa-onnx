@@ -28,7 +28,6 @@ from singa import sonnx
 import onnx
 
 import numpy as np
-import pickle
 autograd.training = True
 np.random.seed(0)
 data = np.random.randn(4,3).astype(np.float32)
@@ -74,6 +73,7 @@ b2 = Tensor(shape=(1, 3), requires_grad=True, stores_grad=True)
 b2.set_value(0.0)
 
 
+
 sgd = optimizer.SGD(0.00)
 
 # training process
@@ -97,4 +97,5 @@ for i in range(1):
 
 model=sonnx.get_onnx_model(loss,inputs,target)
 
-onnx.save(model, 'singa.onnx')
+onnx.save(model, 'mlp.onnx')
+
