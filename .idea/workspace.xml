@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e08d3d19-8957-4e04-8be4-d4c46f18c6a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/dockerhome/linear.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/linear.onnx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerhome/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/cnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerhome/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerhome/mlp.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mlp.onnx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerhome/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mlp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerhome/singa.onnx" beforeDir="false" afterPath="$PROJECT_DIR$/dockerhome/singa.onnx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockersinga/autograd.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/autograd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockersinga/sonnx.py" beforeDir="false" afterPath="$PROJECT_DIR$/dockersinga/sonnx.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,15 +48,15 @@
     <session id="-759695332">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
-          <entry key="project.open.time.0" value="8" />
+          <entry key="project.closed" value="15" />
+          <entry key="project.open.time.0" value="9" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="19" />
+          <entry key="project.opened" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -60,24 +64,24 @@
           <entry key="dd" value="1" />
           <entry key="ipynb" value="3" />
           <entry key="pkl" value="1" />
-          <entry key="py" value="108" />
+          <entry key="py" value="111" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IPNB" value="3" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="108" />
+          <entry key="Python" value="111" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7199" />
+          <entry key="py" value="7517" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7199" />
+          <entry key="Python" value="7517" />
         </counts>
       </usages-collector>
     </session>
@@ -87,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/mplonnx2singa.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="63" column="16" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="16" />
+            <state relative-caret-position="487">
+              <caret line="57" column="37" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -96,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-283">
-              <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+            <state relative-caret-position="1851">
+              <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
               <folding>
                 <element signature="e#792#816#0" expanded="true" />
               </folding>
@@ -105,16 +109,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="372">
+              <caret line="182" column="33" selection-start-line="182" selection-start-column="33" selection-end-line="182" selection-end-column="33" />
               <folding>
                 <element signature="e#792#823#0" expanded="true" />
-                <marker date="1543814516270" expanded="true" signature="3358:4773" ph="..." />
-                <marker date="1543814516270" expanded="true" signature="4773:4778" ph="..." />
+                <marker date="1543907419409" expanded="true" signature="3333:4652" ph="..." />
+                <marker date="1543907419409" expanded="true" signature="4652:4705" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dockerhome/cnn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="107" column="25" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -122,8 +135,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8521">
-              <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+            <state relative-caret-position="158">
+              <caret line="1315" column="22" lean-forward="true" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
               <folding>
                 <element signature="e#790#821#0" expanded="true" />
               </folding>
@@ -131,11 +144,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dockersinga/singa_wrap.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="1951" column="34" selection-start-line="1951" selection-start-column="25" selection-end-line="1951" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dockerhome/linear.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-726">
-              <caret line="12" column="22" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="22" />
+            <state relative-caret-position="685">
+              <caret line="77" column="32" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="32" />
               <folding>
                 <element signature="e#792#816#0" expanded="true" />
               </folding>
@@ -154,12 +176,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>in add</find>
-      <find>0x7f9a17635518</find>
-      <find>0x7f102cea84a8</find>
-      <find>0x7f7ac7021518</find>
-      <find>input</find>
-      <find>from_numpy</find>
       <find>dependency</find>
       <find>print</find>
       <find>model_def</find>
@@ -184,6 +200,12 @@
       <find>_conv2d</find>
       <find>output</find>
       <find>Layer</find>
+      <find>Concat</find>
+      <find>conv</find>
+      <find>self.handle</find>
+      <find>handle</find>
+      <find>linear</find>
+      <find>padding</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -209,13 +231,13 @@
         <option value="$PROJECT_DIR$/pytorchMLP.py" />
         <option value="$PROJECT_DIR$/parallel.py" />
         <option value="$PROJECT_DIR$/mlp.py" />
-        <option value="$PROJECT_DIR$/dockersinga/autograd.py" />
         <option value="$PROJECT_DIR$/mlponnx2singa.py" />
         <option value="$PROJECT_DIR$/sonnx.py" />
         <option value="$PROJECT_DIR$/cnn.py" />
-        <option value="$PROJECT_DIR$/dockerhome/cnn.py" />
         <option value="$PROJECT_DIR$/dockerhome/linear.py" />
         <option value="$PROJECT_DIR$/dockerhome/mlp.py" />
+        <option value="$PROJECT_DIR$/dockersinga/autograd.py" />
+        <option value="$PROJECT_DIR$/dockerhome/cnn.py" />
         <option value="$PROJECT_DIR$/dockerhome/mplonnx2singa.py" />
         <option value="$PROJECT_DIR$/dockersinga/sonnx.py" />
       </list>
@@ -661,7 +683,7 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49920255" visible="true" weight="0.15865119" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49920255" visible="true" weight="0.16473189" />
       <window_info id="Structure" order="1" sideWeight="0.50079745" side_tool="true" weight="0.14206745" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -671,7 +693,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3294979" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.4997236" visible="true" weight="0.17154811" />
+      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.4997236" weight="0.09937239" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5002764" side_tool="true" weight="0.21966527" />
@@ -805,16 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/autograd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="839" column="8" selection-start-line="839" selection-start-column="8" selection-end-line="839" selection-end-column="8" />
-          <folding>
-            <element signature="e#790#821#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mlponnx2singa.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="571">
@@ -861,13 +873,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="110" column="4" lean-forward="true" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/onnx/helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-480">
@@ -882,51 +887,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
+    <entry file="file://$PROJECT_DIR$/dockerhome/linear.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
-          <folding>
-            <element signature="e#792#823#0" expanded="true" />
-            <marker date="1543814516270" expanded="true" signature="3358:4773" ph="..." />
-            <marker date="1543814516270" expanded="true" signature="4773:4778" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/mplonnx2singa.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="63" column="16" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-283">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        <state relative-caret-position="685">
+          <caret line="77" column="32" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="32" />
           <folding>
             <element signature="e#792#816#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/remote_sources/-1908755023/-1227933812/singa/autograd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8521">
-          <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+        <state relative-caret-position="217">
+          <caret line="723" column="8" selection-start-line="723" selection-start-column="8" selection-end-line="723" selection-end-column="8" />
           <folding>
             <element signature="e#790#821#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dockerhome/linear.py">
+    <entry file="file://$PROJECT_DIR$/dockerhome/mlp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-726">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="22" />
+        <state relative-caret-position="1851">
+          <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
           <folding>
             <element signature="e#792#816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerhome/mplonnx2singa.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="57" column="37" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerhome/cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="107" column="25" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/autograd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="1315" column="22" lean-forward="true" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
+          <folding>
+            <element signature="e#790#821#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/singa_wrap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="1951" column="34" selection-start-line="1951" selection-start-column="25" selection-end-line="1951" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockersinga/sonnx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="182" column="33" selection-start-line="182" selection-start-column="33" selection-end-line="182" selection-end-column="33" />
+          <folding>
+            <element signature="e#792#823#0" expanded="true" />
+            <marker date="1543907419409" expanded="true" signature="3333:4652" ph="..." />
+            <marker date="1543907419409" expanded="true" signature="4652:4705" ph="..." />
           </folding>
         </state>
       </provider>
