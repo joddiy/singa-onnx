@@ -146,7 +146,12 @@ class ONNXm(Layer):
                 oper[str(i.output[0])] = autograd.flatten(oper[str(i.input[0])])
             elif(i.op_type == 'Concat'):
                 oper[str(i.output[0])] = autograd.cat((oper[str(i.input[0])], oper[str(i.input[1])]),int(i.attribute[0].i))
-
+            elif(i.op_type == 'Tanh'):
+                oper[str(i.output[0])] = autograd.tanh(oper[str(i.input[0])])
+            elif (i.op_type == 'Sigmoid'):
+                oper[str(i.output[0])] = autograd.sigmoid(oper[str(i.input[0])])
+            elif (i.op_type == 'Mul'):
+                oper[str(i.output[0])] = autograd.mul(oper[str(i.input[0])],oper[str(i.input[1])])
         print('finish farward')
         return oper['Y']
 
@@ -173,8 +178,8 @@ def get_onnx_model(y,inputs,target):
 
     ready = deque([y.creator])
 
-    supportOp = set(['ReLU','SoftMax','Add','AddBias','Matmul','Flatten','_Conv2d','Concat'])
-    singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv'}
+    supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh'])
+    singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul'}
     lastop=True
     while len(ready) > 0:
         op = ready.pop()

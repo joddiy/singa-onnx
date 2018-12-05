@@ -112,11 +112,12 @@ if __name__ == '__main__':
 
     def forward(x, t):
         y = conv1(x)
-        y = autograd.relu(y)
+        y = autograd.tanh(y)
         y1 = conv21(y)
         y2 = conv22(y)
         y = autograd.cat((y1, y2), 1)
-        y = autograd.relu(y)
+        y = autograd.sigmoid(y)
+        y = autograd.mul(y,y)
         y = autograd.flatten(y)
         y = linear(y)
         loss = autograd.softmax_cross_entropy(y, t)
