@@ -108,6 +108,10 @@ def combine_node(modeldic, model):
         if (i.op_type == 'MaxPool'):
             k = (int(i.attribute[0].ints[0]),int(i.attribute[0].ints[0]))
             layer[str(i.output[0])] = autograd.MaxPool2d(k, int(i.attribute[2].ints[0]),padding=int(i.attribute[1].ints[0]))
+    for i in model.graph.node:
+        if (i.op_type == 'AveragePool'):
+            k = (int(i.attribute[0].ints[0]),int(i.attribute[0].ints[0]))
+            layer[str(i.output[0])] = autograd.AvgPool2d(k, int(i.attribute[2].ints[0]),padding=int(i.attribute[1].ints[0]))
 
     return layer, model
 
@@ -157,6 +161,8 @@ class ONNXm(Layer):
             elif (i.op_type == 'Mul'):
                 oper[str(i.output[0])] = autograd.mul(oper[str(i.input[0])],oper[str(i.input[1])])
             elif (i.op_type == 'MaxPool'):
+                oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
+            elif (i.op_type == 'AveragePool'):
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
         print('finish farward')
         return oper['Y']
@@ -213,10 +219,15 @@ def get_onnx_model(y,inputs,target):
                     stride=[op.handle.stride_h,op.handle.stride_w]
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name, pads=pads,strides=stride)] + node
                 elif(isinstance(op,_Pooling2d)):
+
                     k = [op.handle.kernel_h, op.handle.kernel_w]
                     s = [op.handle.stride_h, op.handle.stride_w]
                     p = [op.handle.pad_h,op.handle.pad_h, op.handle.pad_w,op.handle.pad_w]
-                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name,kernel_shape=k,pads=p,strides=s)] + node
+                    if (op.handle.is_max_pooling):
+                        node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name,kernel_shape=k,pads=p,strides=s)] + node
+                    else:
+                        node = [onnx.helper.make_node('AveragePool', inputs=pre, outputs=[cur], name=name, kernel_shape=k,
+                                                      pads=p, strides=s)] + node
                 else:
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur],name=name )] + node
             num = 1

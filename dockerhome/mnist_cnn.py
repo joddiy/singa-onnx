@@ -110,6 +110,7 @@ if __name__ == '__main__':
     conv22 = autograd.Conv2d(32, 16, 3, padding=1)
     linear = autograd.Linear(32 * 28 * 28, 10)
     pooling1 = autograd.MaxPool2d(3, 1, padding=1)
+    pooling2 = autograd.AvgPool2d(3, 1, padding=1)
 
     def forward(x, t):
         y = conv1(x)
@@ -120,6 +121,8 @@ if __name__ == '__main__':
         y = autograd.sigmoid(y)
         y = autograd.mul(y,y)
         y = pooling1(y)
+        y = autograd.sigmoid(y)
+        y = pooling2(y)
         y = autograd.flatten(y)
         y = linear(y)
         loss = autograd.softmax_cross_entropy(y, t)
