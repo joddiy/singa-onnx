@@ -111,6 +111,7 @@ if __name__ == '__main__':
     linear = autograd.Linear(32 * 28 * 28, 10)
     pooling1 = autograd.MaxPool2d(3, 1, padding=1)
     pooling2 = autograd.AvgPool2d(3, 1, padding=1)
+    bn = autograd.BatchNorm2d(32)
 
     def forward(x, t):
         y = conv1(x)
@@ -119,6 +120,8 @@ if __name__ == '__main__':
         y2 = conv22(y)
         y = autograd.cat((y1, y2), 1)
         y = autograd.sigmoid(y)
+        y = bn(y)
+        y = autograd.relu(y)
         y = autograd.mul(y,y)
         y = pooling1(y)
         y = autograd.sigmoid(y)
@@ -138,8 +141,6 @@ if __name__ == '__main__':
 
             loss, y = forward(inputs, targets)
 
-            model = sonnx.get_onnx_model(loss, inputs, targets)
-            onnx.save(model, 'cnn.onnx')
 
             accuracy_rate = accuracy(tensor.to_numpy(y),
                                      tensor.to_numpy(targets))
@@ -148,5 +149,8 @@ if __name__ == '__main__':
                       tensor.to_numpy(loss)[0])
             for p, gp in autograd.backward(loss):
                 sgd.update(p, gp)
+
+            model = sonnx.get_onnx_model(loss, inputs, targets)
+            onnx.save(model, 'cnn.onnx')
             break
 

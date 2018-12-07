@@ -39,7 +39,7 @@ from . import singa_wrap as singa
 #from .tensor import einsum
 from autograd import *
 from singa.tensor import to_numpy
-from autograd import _Conv2d,_Pooling2d
+from autograd import _Conv2d,_Pooling2d,_BatchNorm2d
 
 def onnx_model_init(path):
     '''
@@ -112,6 +112,12 @@ def combine_node(modeldic, model):
         if (i.op_type == 'AveragePool'):
             k = (int(i.attribute[0].ints[0]),int(i.attribute[0].ints[0]))
             layer[str(i.output[0])] = autograd.AvgPool2d(k, int(i.attribute[2].ints[0]),padding=int(i.attribute[1].ints[0]))
+    for i in model.graph.node:
+        if (i.op_type == 'BatchNormalization'):
+            shape = find_shape(i.input[1], model)
+            layer[str(i.output[0])] = autograd.BatchNorm2d(shape[0])
+            layer[str(i.output[0])].set_params(scale=modeldic[str(i.input[1])])
+            layer[str(i.output[0])].set_params(bias=modeldic[str(i.input[2])])
 
     return layer, model
 
@@ -164,6 +170,8 @@ class ONNXm(Layer):
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
             elif (i.op_type == 'AveragePool'):
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
+            elif (i.op_type == 'BatchNormalization'):
+                oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
         print('finish farward')
         return oper['Y']
 
@@ -190,8 +198,8 @@ def get_onnx_model(y,inputs,target):
 
     ready = deque([y.creator])
 
-    supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d'])
-    singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool'}
+    supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d','_BatchNorm2d'])
+    singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization'}
     lastop=True
     while len(ready) > 0:
         op = ready.pop()
@@ -228,11 +236,22 @@ def get_onnx_model(y,inputs,target):
                     else:
                         node = [onnx.helper.make_node('AveragePool', inputs=pre, outputs=[cur], name=name, kernel_shape=k,
                                                       pads=p, strides=s)] + node
+                elif (isinstance(op, _BatchNorm2d)):
+                    pre.append(cur + 'op.running_mean')
+                    pre.append(cur + 'op.running_var')
+                    dummy0 = to_numpy(tensor.Tensor(device=op.running_mean.device(), data=op.running_mean))
+                    dummy1 = to_numpy(tensor.Tensor(device=op.running_mean.device(), data=op.running_mean))
+                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name)] + node
+
+                    node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[3]],
+                                                  value=numpy_helper.from_array(dummy0))] + node
+                    node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[4]],
+                                                  value=numpy_helper.from_array(dummy1))] + node
                 else:
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur],name=name )] + node
             num = 1
             while(True):
-                if (len(pre) > num and isinstance(op.src[num][0],Dummy) and op.src[num][2] is not None):
+                if (len(op.src) > num and isinstance(op.src[num][0],Dummy) and op.src[num][2] is not None):
                     dummy = to_numpy(op.src[num][2])
                     node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
                                                   value=numpy_helper.from_array(dummy))] + node

@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     model = sonnx.from_onnx_model('cnn.onnx')
     print('finish init')
-
+    autograd.training = True
     # training process
     for epoch in range(1):
         inputs = tensor.Tensor(device=dev, data=x_train[0:100], stores_grad=False)
