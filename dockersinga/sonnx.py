@@ -58,9 +58,9 @@ def onnx_model_init(path):
 
 
 def find_add(output, model):
-    ########
+    '''
     #utils for combine operators to layers
-    ########
+    '''
     ans = []
     for idx, i in enumerate(model.graph.node):
         for j in i.input:
@@ -70,9 +70,9 @@ def find_add(output, model):
 
 
 def find_shape(input, model):
-    #########
+    '''
     # find weight shape for layers
-    #########
+    '''
     for i in model.graph.node:
         if (i.op_type == 'Constant' and i.output[0] == input):
             return onnx.numpy_helper.to_array(i.attribute[0].t).shape
@@ -80,9 +80,9 @@ def find_shape(input, model):
 
 
 def combine_node(modeldic, model):
-    ########
+    '''
     # for combine operators to layers
-    ########
+    '''
     for idx, i in enumerate(model.graph.node):
         if (i.op_type == 'MatMul'):
             addlist = find_add(i.output[0], model)
