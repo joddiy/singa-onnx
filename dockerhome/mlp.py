@@ -78,19 +78,14 @@ sgd = optimizer.SGD(0.00)
 
 # training process
 for i in range(1):
-    print(tensor.to_numpy(inputs))
-    print(tensor.to_numpy(w0),tensor.to_numpy(b0))
     x = autograd.matmul(inputs, w0)
-    #print(tensor.to_numpy(x))
     x = autograd.add_bias(x, b0)
-    print(tensor.to_numpy(x))
-    #x = autograd.relu(x)
-    #print(tensor.to_numpy(x))
-    #x2 = autograd.matmul(x, w2)
-    #x2 = autograd.add_bias(x2, b2)
-    #x1 = autograd.matmul(x, w1)
-    #x1 = autograd.add_bias(x1, b1)
-    #x = autograd.add(x1, x2)
+    x = autograd.relu(x)
+    x2 = autograd.matmul(x, w2)
+    x2 = autograd.add_bias(x2, b2)
+    x1 = autograd.matmul(x, w1)
+    x1 = autograd.add_bias(x1, b1)
+    x = autograd.add(x1, x2)
     x = autograd.softmax(x)
     loss = autograd.cross_entropy(x, target)
     gradient = autograd.backward(loss)
@@ -100,7 +95,7 @@ for i in range(1):
         print('training loss = ', tensor.to_numpy(loss)[0])
 
 
-model=sonnx.ONNXm.get_onnx_model([loss],[inputs,target])
+model=sonnx.ONNXm.to_onnx_model([loss],[inputs,target])
 
 onnx.save(model, 'mlp.onnx')
 

@@ -84,9 +84,6 @@ class ONNXm(Layer):
             if (i.op_type == 'Linear'):
                 shape = self.find_shape(i.input[1])
                 self.layer[str(i.output[0])] = autograd.Linear(shape[0], shape[1])
-                print(tensor.to_numpy(modeldic[str(i.input[1])]),'w0')
-                print(tensor.to_numpy(modeldic[str(i.input[2])]),'b0')
-                print('layer key', str(i.output[0]), self.layer[str(i.output[0])])
                 self.layer[str(i.output[0])].set_params(W=tensor.to_numpy(modeldic[str(i.input[1])]))
                 self.layer[str(i.output[0])].set_params(b=tensor.to_numpy(modeldic[str(i.input[2])]))
 
@@ -172,32 +169,17 @@ class ONNXm(Layer):
             elif (i.op_type == 'Mul'):
                 oper[str(i.output[0])] = autograd.mul(oper[str(i.input[0])],oper[str(i.input[1])])
             elif (i.op_type in supportLayer):
-
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
-                print("w",tensor.to_numpy(layer[str(i.output[0])].W))
-                print("b", tensor.to_numpy(layer[str(i.output[0])].b))
-                print(tensor.to_numpy(oper[str(i.input[0])]), 'inputs')
-                print('layer key', str(i.output[0]), layer[str(i.output[0])])
-                print('op x in', str(i.input[0]), oper[str(i.input[0])])
-                print('op x out', str(i.output[0]), oper[str(i.output[0])])
-                print('linear out',tensor.to_numpy(oper[str(i.output[0])]))
             elif (i.op_type == 'Or'):
-                #print('out',str(i.output[0]))
-                #print('in',oper[str(i.input[0])],oper[str(i.input[1])])
-                #print('in', str(i.input[0]),str(i.input[1]))
                 oper[str(i.output[0])] = autograd.cross_entropy(oper[str(i.input[0])],oper[str(i.input[1])])
-        print(oper)
-        print(layer)
         out =[]
         for counter,i in enumerate(model.graph.output):
             out.append(self.modeldic[i.name])
         return out
 
 
-
-
     @staticmethod
-    def get_onnx_model(y,inputs):
+    def to_onnx_model(y,inputs):
 
         '''
         get onnx model from singa computational graph
@@ -217,8 +199,8 @@ class ONNXm(Layer):
             ready = deque([yi])
             Y = [helper.make_tensor_value_info('Y'+str(counter), TensorProto.FLOAT, i.shape)]
 
-        supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d','_BatchNorm2d','CrossEntropy'])
-        singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization','CrossEntropy':'Or'}
+        supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d','_BatchNorm2d','CrossEntropy','SoftMaxCrossEntropy'])
+        singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization','CrossEntropy':'Or','SoftMaxCrossEntropy':'Xor'}
         lastop=0
         counterX = 0
         while len(ready) > 0:
