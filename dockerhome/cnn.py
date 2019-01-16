@@ -133,8 +133,7 @@ if __name__ == '__main__':
 
             loss, y = forward(inputs, targets)
 
-            model = sonnx.get_onnx_model(loss, inputs, targets)
-            onnx.save(model, 'cnn.onnx')
+
 
             accuracy_rate = accuracy(tensor.to_numpy(y),
                                      tensor.to_numpy(targets))
@@ -144,3 +143,6 @@ if __name__ == '__main__':
             for p, gp in autograd.backward(loss):
                 sgd.update(p, gp)
             break
+
+model = sonnx.ONNXm.get_onnx_model(loss, inputs, targets)
+onnx.save(model, 'cnn.onnx')

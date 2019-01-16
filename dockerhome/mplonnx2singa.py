@@ -61,8 +61,7 @@ sgd = optimizer.SGD(0.00)
 
 # training process
 for epoch in range(1):
-    y = model(inputs)
-    loss = autograd.cross_entropy(y, target)
+    loss = model(inputs,target)
     if (epoch % 100 == 0):
         print('training loss = ', tensor.to_numpy(loss)[0])
 
