@@ -50,26 +50,26 @@ def to_categorical(y, num_classes):
     categorical[np.arange(n), y] = 1
     return categorical
 
-label = to_categorical(label, 3).astype(np.float32)
+label = to_categorical(label, 2).astype(np.float32)
 print('train_data_shape:', data.shape)
 print('train_label_shape:', label.shape)
 
 inputs = Tensor(data=data)
 target = Tensor(data=label)
 
-w0 = Tensor(shape=(3, 3), requires_grad=True, stores_grad=True)
+w0 = Tensor(shape=(3, 2), requires_grad=True, stores_grad=True)
 w0.gaussian(0.0, 0.1)
-b0 = Tensor(shape=(1, 3), requires_grad=True, stores_grad=True)
+b0 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
 b0.set_value(0.0)
 
-w1 = Tensor(shape=(3, 3), requires_grad=True, stores_grad=True)
+w1 = Tensor(shape=(2, 2), requires_grad=True, stores_grad=True)
 w1.gaussian(0.0, 0.1)
-b1 = Tensor(shape=(1, 3), requires_grad=True, stores_grad=True)
+b1 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
 b1.set_value(0.0)
 
-w2 = Tensor(shape=(3, 3), requires_grad=True, stores_grad=True)
+w2 = Tensor(shape=(2, 2), requires_grad=True, stores_grad=True)
 w2.gaussian(0.0, 0.1)
-b2 = Tensor(shape=(1, 3), requires_grad=True, stores_grad=True)
+b2 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
 b2.set_value(0.0)
 
 
@@ -78,9 +78,14 @@ sgd = optimizer.SGD(0.00)
 
 # training process
 for i in range(1):
+    #print(tensor.to_numpy(inputs))
+    print(tensor.to_numpy(w0),tensor.to_numpy(b0))
     x = autograd.matmul(inputs, w0)
+    #print(tensor.to_numpy(x))
     x = autograd.add_bias(x, b0)
+    print(tensor.to_numpy(x))
     x = autograd.relu(x)
+    #print(tensor.to_numpy(x))
     x2 = autograd.matmul(x, w2)
     x2 = autograd.add_bias(x2, b2)
     x1 = autograd.matmul(x, w1)

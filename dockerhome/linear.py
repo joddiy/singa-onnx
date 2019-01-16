@@ -51,16 +51,16 @@ def to_categorical(y, num_classes):
     categorical[np.arange(n), y] = 1
     return categorical
 
-label = to_categorical(label, 3).astype(np.float32)
+label = to_categorical(label, 2).astype(np.float32)
 print('train_data_shape:', data.shape)
 print('train_label_shape:', label.shape)
 
 inputs = Tensor(data=data)
 target = Tensor(data=label)
 
-linear1 = autograd.Linear(3, 3)
-linear2 = autograd.Linear(3, 3)
-linear3 = autograd.Linear(3, 3)
+linear1 = autograd.Linear(3, 2)
+linear2 = autograd.Linear(2, 2)
+linear3 = autograd.Linear(2, 2)
 
 
 

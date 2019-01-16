@@ -66,10 +66,12 @@ class ONNXm(Layer):
         '''
         # for combine operators to layers
         '''
+        '''
         for idx, i in enumerate(model.graph.node):
             if (i.op_type == 'MatMul'):
                 addlist = self.find_add(i.output[0], model)
-                if (len(addlist) > 1 or len(addlist) == 0): continue
+                if (len(addlist) == 0): continue
+                if (len(addlist) > 1): continue 
                 addidx = addlist[0]
                 if (i.name == "not_requires_grad" and model.graph.node[addidx].name == "not_requires_grad"): continue
                 model.graph.node[idx].output[0] = model.graph.node[addidx].output[0]
@@ -82,8 +84,10 @@ class ONNXm(Layer):
             if (i.op_type == 'Linear'):
                 shape = self.find_shape(i.input[1], model)
                 layer[str(i.output[0])] = autograd.Linear(shape[0], shape[1])
+                #print(tensor.to_numpy(modeldic[str(i.input[1])]),'w0')
                 layer[str(i.output[0])].set_params(W=modeldic[str(i.input[1])])
                 layer[str(i.output[0])].set_params(b=modeldic[str(i.input[2])])
+        '''
 
         for i in model.graph.node:
             if (i.op_type == 'Conv'):
@@ -143,20 +147,24 @@ class ONNXm(Layer):
             input: input for singa model
             load other nodes of onnx
             '''
-        supportLayer = ['Linear','Conv','MaxPool','AveragePool','BatchNormalization']
+        #supportLayer = ['Linear','Conv','MaxPool','AveragePool','BatchNormalization']
+        supportLayer = ['Conv', 'MaxPool', 'AveragePool', 'BatchNormalization']
         layer, model,oper = self.layer, self.model,self.modeldic
 
         for counter,i in enumerate(model.graph.input):
             self.modeldic[i.name] = inputs[counter]
-
         for i in model.graph.node:
             if (i.op_type == 'Relu'):
                 oper[str(i.output[0])] = autograd.relu(oper[str(i.input[0])])
+                #print(tensor.to_numpy(oper[str(i.output[0])]),'relu out')
+                print(tensor.to_numpy(oper[str(i.input[0])]),'relu in')
+                #print('relu str',str(i.input[0]))
             elif (i.op_type == 'Softmax'):
                 oper[str(i.output[0])] = autograd.softmax(oper[str(i.input[0])])
             elif (i.op_type == 'Add'):
                 oper[str(i.output[0])] = autograd.add(oper[str(i.input[0])], oper[str(i.input[1])])
             elif (i.op_type == 'MatMul'):
+                print('nonono')
                 oper[str(i.output[0])] = autograd.matmul(oper[str(i.input[0])], oper[str(i.input[1])])
             elif (i.op_type == 'Flatten'):
                 oper[str(i.output[0])] = autograd.flatten(oper[str(i.input[0])])
@@ -169,9 +177,18 @@ class ONNXm(Layer):
             elif (i.op_type == 'Mul'):
                 oper[str(i.output[0])] = autograd.mul(oper[str(i.input[0])],oper[str(i.input[1])])
             elif (i.op_type in supportLayer):
+                print(tensor.to_numpy(oper[str(i.input[0])]), 'inputs')
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
-            elif (i.op_type in 'CrossEntropy'):
+                #print('linear',tensor.to_numpy(oper[str(i.output[0])]))
+                #print('linear str',str(i.output[0]))
+            elif (i.op_type == 'Or'):
+                #print('out',str(i.output[0]))
+                #print('in',oper[str(i.input[0])],oper[str(i.input[1])])
+                #print('in', str(i.input[0]),str(i.input[1]))
                 oper[str(i.output[0])] = autograd.cross_entropy(oper[str(i.input[0])],oper[str(i.input[1])])
+        print(oper)
+        #print(oper)
+        #print(layer)
         out =[]
         for counter,i in enumerate(model.graph.output):
             out.append(self.modeldic[i.name])
@@ -191,23 +208,18 @@ class ONNXm(Layer):
             loss for onnx model
         '''
         X,Y = [],[]
-
-        for counter,i in enumerate(inputs):
-            pass
-
         node = []
-
-
+        dependencylist=[]
         for counter,i in enumerate(y):
             dependency = infer_dependency(i.creator)
+            dependencylist.append(dependency)
             yi = i.creator
             yi.end = True
             ready = deque([yi])
             Y = [helper.make_tensor_value_info('Y'+str(counter), TensorProto.FLOAT, i.shape)]
 
-
         supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d','_BatchNorm2d','CrossEntropy'])
-        singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization'}
+        singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization','CrossEntropy':'Or'}
         lastop=0
         counterX = 0
         while len(ready) > 0:
@@ -221,14 +233,12 @@ class ONNXm(Layer):
             #print('op scr', op.src)
             #print('-------')
             if curop in supportOp:
-                if not op.requires_grad:name = "not_requires_grad"
+                if not op.requires_grad:
+                    name = "not_requires_grad"
+                    print('not requres')
                 else:name=''
-                i#f (isinstance(op.src[0][0], Dummy)): pre[0] = 'X'
                 if (curop in singatoonnx): curop = singatoonnx[curop]
                 if (hasattr(op, 'end')):
-                    #print(op.src)
-                    #dummy = to_numpy(op.src[1][2])
-                    #print('dummy',dummy)
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'+str(lastop)],name=name )] + node
                     lastop+=1
                 else:
@@ -267,19 +277,25 @@ class ONNXm(Layer):
                         node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
                                                       value=numpy_helper.from_array(dummy))] + node
                     elif (len(op.src) > num and isinstance(op.src[num][0], Dummy) and op.src[num][2] is None):
-                        X.append(helper.make_tensor_value_info(pre[num], TensorProto.FLOAT,inputs[counterX].shape))
+                        #X = [helper.make_tensor_value_info(pre[num], TensorProto.FLOAT,inputs[len(inputs)-1-counterX].shape)]+X
+                        X = [helper.make_tensor_value_info(pre[num], TensorProto.FLOAT,
+                                                           inputs[len(inputs) - 1 - counterX].shape)] + X
                         counterX+=1
 
                     num+=1
                     if(len(op.src) <= num):break
             if not op.requires_grad:continue
             for (src_op, x_id, y, y_stores_grad) in op.src:
+                for i in range(len(dependencylist)):
+                    if(src_op in dependencylist[i]):
+                        dependency = dependencylist[i]
+                        break
                 dependency[src_op] -= 1
                 if src_op.requires_grad is True:
                     if dependency[src_op] == 0:
                         if not isinstance(src_op, Dummy):ready.append((src_op))
         model_def = helper.make_model(helper.make_graph(node, "t", X, Y, ), producer_name='o')
-        #onnx.checker.check_model(model_def)
+        onnx.checker.check_model(model_def)
         return model_def
 
 
