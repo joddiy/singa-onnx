@@ -55,14 +55,14 @@ inputs = Tensor(data=data)
 target = Tensor(data=label)
 
 
-model = sonnx.from_onnx_model('linear.onnx')
+model = sonnx.from_onnx_model('mlp.onnx')
 print('finish init')
 sgd = optimizer.SGD(0.00)
 
 # training process
 for epoch in range(1):
-    loss = model(inputs,target)
+    loss = model([inputs,target])
     if (epoch % 100 == 0):
-        print('training loss = ', tensor.to_numpy(loss)[0])
+        print('training loss = ', tensor.to_numpy(loss[0])[0])
 
 

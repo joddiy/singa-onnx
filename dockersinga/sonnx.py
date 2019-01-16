@@ -58,6 +58,7 @@ class ONNXm(Layer):
             if (i.op_type == 'Constant'):
                 modeldic[str(i.output[0])] = tensor.from_numpy(onnx.numpy_helper.to_array(i.attribute[0].t))
                 modeldic[str(i.output[0])].stores_grad = True
+
         return modeldic, model
 
     @staticmethod
@@ -137,14 +138,17 @@ class ONNXm(Layer):
         self.modeldic, self.model = self.onnx_model_init(path)
         self.layer, self.model = self.combine_node(self,self.modeldic, self.model)
 
-    def __call__(self,inputs,targets):
+    def __call__(self,inputs):
         '''
             input: input for singa model
             load other nodes of onnx
             '''
         supportLayer = ['Linear','Conv','MaxPool','AveragePool','BatchNormalization']
         layer, model,oper = self.layer, self.model,self.modeldic
-        self.modeldic['X'] = inputs
+
+        for counter,i in enumerate(model.graph.input):
+            self.modeldic[i.name] = inputs[counter]
+
         for i in model.graph.node:
             if (i.op_type == 'Relu'):
                 oper[str(i.output[0])] = autograd.relu(oper[str(i.input[0])])
@@ -167,16 +171,17 @@ class ONNXm(Layer):
             elif (i.op_type in supportLayer):
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
             elif (i.op_type in 'CrossEntropy'):
-                loss = autograd.cross_entropy(oper[str(i.input[0])],targets)
-        return loss
-        #print('finish farward')
-        #return oper['Y']
+                oper[str(i.output[0])] = autograd.cross_entropy(oper[str(i.input[0])],oper[str(i.input[1])])
+        out =[]
+        for counter,i in enumerate(model.graph.output):
+            out.append(self.modeldic[i.name])
+        return out
 
 
 
 
     @staticmethod
-    def get_onnx_model(y,inputs,target):
+    def get_onnx_model(y,inputs):
 
         '''
         get onnx model from singa computational graph
@@ -185,19 +190,26 @@ class ONNXm(Layer):
             Return:
             loss for onnx model
         '''
-        X = helper.make_tensor_value_info('X', TensorProto.FLOAT,inputs.shape)
-        Y = helper.make_tensor_value_info('Y', TensorProto.FLOAT,target.shape)
+        X,Y = [],[]
+
+        for counter,i in enumerate(inputs):
+            pass
+
         node = []
-        dependency = infer_dependency(y.creator)
 
-        assert y.size() == 1, 'y must be a Tensor with a single value;' \
-                              'size of y is % d' % y.size()
 
-        ready = deque([y.creator])
+        for counter,i in enumerate(y):
+            dependency = infer_dependency(i.creator)
+            yi = i.creator
+            yi.end = True
+            ready = deque([yi])
+            Y = [helper.make_tensor_value_info('Y'+str(counter), TensorProto.FLOAT, i.shape)]
+
 
         supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d','_BatchNorm2d','CrossEntropy'])
         singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization'}
-        lastop=True
+        lastop=0
+        counterX = 0
         while len(ready) > 0:
             op = ready.pop()
             if isinstance(op, Dummy):continue
@@ -211,11 +223,14 @@ class ONNXm(Layer):
             if curop in supportOp:
                 if not op.requires_grad:name = "not_requires_grad"
                 else:name=''
-                if (isinstance(op.src[0][0], Dummy)): pre[0] = 'X'
+                i#f (isinstance(op.src[0][0], Dummy)): pre[0] = 'X'
                 if (curop in singatoonnx): curop = singatoonnx[curop]
-                if (lastop):
-                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'],name=name )] + node
-                    lastop = False
+                if (hasattr(op, 'end')):
+                    #print(op.src)
+                    #dummy = to_numpy(op.src[1][2])
+                    #print('dummy',dummy)
+                    node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'+str(lastop)],name=name )] + node
+                    lastop+=1
                 else:
                     if(isinstance(op,Concat)):
                         node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur], name=name,axis=int(op.axis))] + node
@@ -245,21 +260,25 @@ class ONNXm(Layer):
                                                       value=numpy_helper.from_array(dummy1))] + node
                     else:
                         node = [onnx.helper.make_node(curop, inputs=pre, outputs=[cur],name=name )] + node
-                num = 1
+                num = 0
                 while(True):
                     if (len(op.src) > num and isinstance(op.src[num][0],Dummy) and op.src[num][2] is not None):
                         dummy = to_numpy(op.src[num][2])
                         node = [onnx.helper.make_node('Constant', inputs=[], outputs=[pre[num]],
                                                       value=numpy_helper.from_array(dummy))] + node
-                        num+=1
-                    else:break
+                    elif (len(op.src) > num and isinstance(op.src[num][0], Dummy) and op.src[num][2] is None):
+                        X.append(helper.make_tensor_value_info(pre[num], TensorProto.FLOAT,inputs[counterX].shape))
+                        counterX+=1
+
+                    num+=1
+                    if(len(op.src) <= num):break
             if not op.requires_grad:continue
             for (src_op, x_id, y, y_stores_grad) in op.src:
                 dependency[src_op] -= 1
                 if src_op.requires_grad is True:
                     if dependency[src_op] == 0:
                         if not isinstance(src_op, Dummy):ready.append((src_op))
-        model_def = helper.make_model(helper.make_graph(node, "t", [X], [Y], ), producer_name='o')
+        model_def = helper.make_model(helper.make_graph(node, "t", X, Y, ), producer_name='o')
         #onnx.checker.check_model(model_def)
         return model_def
 
