@@ -62,109 +62,104 @@ class ONNXm(Layer):
         return modeldic, model
 
     @staticmethod
-    def combine_node(self,modeldic, model):
+    def combine_node(self,modeldic):
         '''
         # for combine operators to layers
         '''
-        '''
-        for idx, i in enumerate(model.graph.node):
+
+        for idx, i in enumerate(self.model.graph.node):
             if (i.op_type == 'MatMul'):
-                addlist = self.find_add(i.output[0], model)
+                addlist = self.find_add(i.output[0])
                 if (len(addlist) == 0): continue
-                if (len(addlist) > 1): continue 
+                if (len(addlist) > 1): continue
                 addidx = addlist[0]
-                if (i.name == "not_requires_grad" and model.graph.node[addidx].name == "not_requires_grad"): continue
-                model.graph.node[idx].output[0] = model.graph.node[addidx].output[0]
-                model.graph.node[idx].input.append(model.graph.node[addidx].input[1])
-                model.graph.node[idx].op_type = 'Linear'
-                model.graph.node[addidx].op_type = 'removed'
+                if (i.name == "not_requires_grad" and self.model.graph.node[addidx].name == "not_requires_grad"): continue
+                self.model.graph.node[idx].output[0] = self.model.graph.node[addidx].output[0]
+                self.model.graph.node[idx].input.append(self.model.graph.node[addidx].input[1])
+                self.model.graph.node[idx].op_type = 'Linear'
+                self.model.graph.node[addidx].op_type = 'removed'
 
-        layer = {}
-        for i in model.graph.node:
+        self.layer = {}
+        for i in self.model.graph.node:
             if (i.op_type == 'Linear'):
-                shape = self.find_shape(i.input[1], model)
-                layer[str(i.output[0])] = autograd.Linear(shape[0], shape[1])
-                #print(tensor.to_numpy(modeldic[str(i.input[1])]),'w0')
-                layer[str(i.output[0])].set_params(W=modeldic[str(i.input[1])])
-                layer[str(i.output[0])].set_params(b=modeldic[str(i.input[2])])
-        '''
+                shape = self.find_shape(i.input[1])
+                self.layer[str(i.output[0])] = autograd.Linear(shape[0], shape[1])
+                print(tensor.to_numpy(modeldic[str(i.input[1])]),'w0')
+                print(tensor.to_numpy(modeldic[str(i.input[2])]),'b0')
+                print('layer key', str(i.output[0]), self.layer[str(i.output[0])])
+                self.layer[str(i.output[0])].set_params(W=tensor.to_numpy(modeldic[str(i.input[1])]))
+                self.layer[str(i.output[0])].set_params(b=tensor.to_numpy(modeldic[str(i.input[2])]))
 
-        for i in model.graph.node:
+
+        for i in self.model.graph.node:
             if (i.op_type == 'Conv'):
-                shape = self.find_shape(i.input[1], model)
-                layer[str(i.output[0])] = autograd.Conv2d(shape[1], shape[0], shape[2],
+                shape = self.find_shape(i.input[1])
+                self.layer[str(i.output[0])] = autograd.Conv2d(shape[1], shape[0], shape[2],
                                                           padding=int(i.attribute[0].ints[0]))
-                layer[str(i.output[0])].set_params(W=modeldic[str(i.input[1])])
-                layer[str(i.output[0])].set_params(b=modeldic[str(i.input[2])])
+                self.layer[str(i.output[0])].set_params(W=tensor.to_numpy(modeldic[str(i.input[1])].clone()))
+                self.layer[str(i.output[0])].set_params(b=tensor.to_numpy(modeldic[str(i.input[2])].clone()))
 
-        for i in model.graph.node:
+        for i in self.model.graph.node:
             if (i.op_type == 'MaxPool'):
                 k = (int(i.attribute[0].ints[0]), int(i.attribute[0].ints[0]))
-                layer[str(i.output[0])] = autograd.MaxPool2d(k, int(i.attribute[2].ints[0]),
+                self.layer[str(i.output[0])] = autograd.MaxPool2d(k, int(i.attribute[2].ints[0]),
                                                              padding=int(i.attribute[1].ints[0]))
-        for i in model.graph.node:
+        for i in self.model.graph.node:
             if (i.op_type == 'AveragePool'):
                 k = (int(i.attribute[0].ints[0]), int(i.attribute[0].ints[0]))
-                layer[str(i.output[0])] = autograd.AvgPool2d(k, int(i.attribute[2].ints[0]),
+                self.layer[str(i.output[0])] = autograd.AvgPool2d(k, int(i.attribute[2].ints[0]),
                                                              padding=int(i.attribute[1].ints[0]))
-        for i in model.graph.node:
+        for i in self.model.graph.node:
             if (i.op_type == 'BatchNormalization'):
-                shape = self.find_shape(i.input[1], model)
-                layer[str(i.output[0])] = autograd.BatchNorm2d(shape[0])
-                layer[str(i.output[0])].set_params(scale=modeldic[str(i.input[1])])
-                layer[str(i.output[0])].set_params(bias=modeldic[str(i.input[2])])
+                shape = self.find_shape(i.input[1])
+                self.layer[str(i.output[0])] = autograd.BatchNorm2d(shape[0])
+                self.layer[str(i.output[0])].set_params(scale=tensor.to_numpy(modeldic[str(i.input[1])].clone()))
+                self.layer[str(i.output[0])].set_params(bias=tensor.to_numpy(modeldic[str(i.input[2])].clone()))
 
-        return layer, model
 
-    @staticmethod
-    def find_add(output, model):
+    def find_add(self,output):
         '''
         #utils for combine operators to layers
         '''
         ans = []
-        for idx, i in enumerate(model.graph.node):
+        for idx, i in enumerate(self.model.graph.node):
             for j in i.input:
                 if j == output and i.op_type == 'Add':
                     ans.append(idx)
-        return ans
+                    return ans
 
-    @staticmethod
-    def find_shape(input, model):
+    def find_shape(self,input):
         '''
         # find weight shape for layers
         '''
-        for i in model.graph.node:
+        for i in self.model.graph.node:
             if (i.op_type == 'Constant' and i.output[0] == input):
                 return onnx.numpy_helper.to_array(i.attribute[0].t).shape
 
     def __init__(self,path):
         super(ONNXm, self).__init__()
         self.modeldic, self.model = self.onnx_model_init(path)
-        self.layer, self.model = self.combine_node(self,self.modeldic, self.model)
+        self.combine_node(self,self.modeldic)
 
     def __call__(self,inputs):
         '''
             input: input for singa model
             load other nodes of onnx
             '''
-        #supportLayer = ['Linear','Conv','MaxPool','AveragePool','BatchNormalization']
-        supportLayer = ['Conv', 'MaxPool', 'AveragePool', 'BatchNormalization']
+        supportLayer = ['Linear','Conv','MaxPool','AveragePool','BatchNormalization']
+        #supportLayer = ['Conv', 'MaxPool', 'AveragePool', 'BatchNormalization']
         layer, model,oper = self.layer, self.model,self.modeldic
 
         for counter,i in enumerate(model.graph.input):
-            self.modeldic[i.name] = inputs[counter]
+            oper[i.name] = inputs[counter]
         for i in model.graph.node:
             if (i.op_type == 'Relu'):
                 oper[str(i.output[0])] = autograd.relu(oper[str(i.input[0])])
-                #print(tensor.to_numpy(oper[str(i.output[0])]),'relu out')
-                print(tensor.to_numpy(oper[str(i.input[0])]),'relu in')
-                #print('relu str',str(i.input[0]))
             elif (i.op_type == 'Softmax'):
                 oper[str(i.output[0])] = autograd.softmax(oper[str(i.input[0])])
             elif (i.op_type == 'Add'):
                 oper[str(i.output[0])] = autograd.add(oper[str(i.input[0])], oper[str(i.input[1])])
             elif (i.op_type == 'MatMul'):
-                print('nonono')
                 oper[str(i.output[0])] = autograd.matmul(oper[str(i.input[0])], oper[str(i.input[1])])
             elif (i.op_type == 'Flatten'):
                 oper[str(i.output[0])] = autograd.flatten(oper[str(i.input[0])])
@@ -177,18 +172,22 @@ class ONNXm(Layer):
             elif (i.op_type == 'Mul'):
                 oper[str(i.output[0])] = autograd.mul(oper[str(i.input[0])],oper[str(i.input[1])])
             elif (i.op_type in supportLayer):
-                print(tensor.to_numpy(oper[str(i.input[0])]), 'inputs')
+
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
-                #print('linear',tensor.to_numpy(oper[str(i.output[0])]))
-                #print('linear str',str(i.output[0]))
+                print("w",tensor.to_numpy(layer[str(i.output[0])].W))
+                print("b", tensor.to_numpy(layer[str(i.output[0])].b))
+                print(tensor.to_numpy(oper[str(i.input[0])]), 'inputs')
+                print('layer key', str(i.output[0]), layer[str(i.output[0])])
+                print('op x in', str(i.input[0]), oper[str(i.input[0])])
+                print('op x out', str(i.output[0]), oper[str(i.output[0])])
+                print('linear out',tensor.to_numpy(oper[str(i.output[0])]))
             elif (i.op_type == 'Or'):
                 #print('out',str(i.output[0]))
                 #print('in',oper[str(i.input[0])],oper[str(i.input[1])])
                 #print('in', str(i.input[0]),str(i.input[1]))
                 oper[str(i.output[0])] = autograd.cross_entropy(oper[str(i.input[0])],oper[str(i.input[1])])
         print(oper)
-        #print(oper)
-        #print(layer)
+        print(layer)
         out =[]
         for counter,i in enumerate(model.graph.output):
             out.append(self.modeldic[i.name])
