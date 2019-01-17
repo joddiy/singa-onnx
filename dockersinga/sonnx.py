@@ -170,8 +170,10 @@ class ONNXm(Layer):
                 oper[str(i.output[0])] = autograd.mul(oper[str(i.input[0])],oper[str(i.input[1])])
             elif (i.op_type in supportLayer):
                 oper[str(i.output[0])] = layer[str(i.output[0])](oper[str(i.input[0])])
-            elif (i.op_type == 'Or'):
+            elif (i.op_type == 'CrossEntropy'):
                 oper[str(i.output[0])] = autograd.cross_entropy(oper[str(i.input[0])],oper[str(i.input[1])])
+            elif (i.op_type == 'SoftMaxCrossEntropy'):
+                oper[str(i.output[0])] = autograd.softmax_cross_entropy(oper[str(i.input[0])], oper[str(i.input[1])])
         out =[]
         for counter,i in enumerate(model.graph.output):
             out.append(self.modeldic[i.name])
@@ -200,7 +202,9 @@ class ONNXm(Layer):
             Y = [helper.make_tensor_value_info('Y'+str(counter), TensorProto.FLOAT, i.shape)]
 
         supportOp = set(['ReLU', 'SoftMax', 'Add', 'AddBias', 'Matmul', 'Flatten', '_Conv2d', 'Concat', 'ElemMatmul','Sigmoid','Tanh','_Pooling2d','_BatchNorm2d','CrossEntropy','SoftMaxCrossEntropy'])
-        singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization','CrossEntropy':'Or','SoftMaxCrossEntropy':'Xor'}
+        #singatoonnx = {'SoftMax':'Softmax','AddBias':'Add','Matmul':'MatMul','ReLU':'Relu','_Conv2d':'Conv','ElemMatmul':'Mul','_Pooling2d':'MaxPool','_BatchNorm2d':'BatchNormalization','CrossEntropy':'Or','SoftMaxCrossEntropy':'Xor'}
+        singatoonnx = {'SoftMax': 'Softmax', 'AddBias': 'Add', 'Matmul': 'MatMul', 'ReLU': 'Relu', '_Conv2d': 'Conv',
+                       'ElemMatmul': 'Mul', '_Pooling2d': 'MaxPool', '_BatchNorm2d': 'BatchNormalization'}
         lastop=0
         counterX = 0
         while len(ready) > 0:
@@ -220,6 +224,12 @@ class ONNXm(Layer):
                 else:name=''
                 if (curop in singatoonnx): curop = singatoonnx[curop]
                 if (hasattr(op, 'end')):
+                    if(isinstance(op,SoftMaxCrossEntropy)):
+                        # singa.autograd.SoftMaxCrossEntropy does not have dummy in op.src
+                        X = [helper.make_tensor_value_info(str(op.t), TensorProto.FLOAT,
+                                                           inputs[len(inputs) - 1 - counterX].shape)] + X
+                        pre.append(str(op.t))
+                        counterX += 1
                     node = [onnx.helper.make_node(curop, inputs=pre, outputs=['Y'+str(lastop)],name=name )] + node
                     lastop+=1
                 else:
@@ -276,7 +286,7 @@ class ONNXm(Layer):
                     if dependency[src_op] == 0:
                         if not isinstance(src_op, Dummy):ready.append((src_op))
         model_def = helper.make_model(helper.make_graph(node, "t", X, Y, ), producer_name='o')
-        onnx.checker.check_model(model_def)
+        #onnx.checker.check_model(model_def)
         return model_def
 
 

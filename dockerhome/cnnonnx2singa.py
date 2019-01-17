@@ -92,7 +92,7 @@ if __name__ == '__main__':
     num_classes = 10
     epochs = 1
 
-    sgd = opt.SGD(lr=0.01)
+    sgd = opt.SGD(lr=0.00)
 
     x_train = preprocess(train[0])
     y_train = to_categorical(train[1], num_classes)
@@ -117,5 +117,5 @@ if __name__ == '__main__':
     for epoch in range(1):
         inputs = tensor.Tensor(device=dev, data=x_train[0:100], stores_grad=False)
         targets = tensor.Tensor(device=dev, data=y_train[0:100], requires_grad=False, stores_grad=False)
-        outputs = model([inputs])
+        outputs = model([inputs,targets])
         print('outputs',tensor.to_numpy(outputs[0])[0])
