@@ -73,7 +73,6 @@ if __name__ == '__main__':
 
 
     file_path = 'mnist.npz'
-    use_cpu = 'store_true'
 
     print(file_path)
     assert os.path.exists(file_path), \
@@ -110,12 +109,20 @@ if __name__ == '__main__':
     conv22 = autograd.Conv2d(32, 16, 3, padding=1)
     linear = autograd.Linear(32 * 28 * 28, 10)
 
-    model = sonnx.from_onnx_model('cnn.onnx')
+    model = onnx.load('cnn.onnx')
+    rep = sonnx.BackendRep(model)
+    #####backend run multiple times
     print('finish init')
     autograd.training = True
     # training process
     for epoch in range(1):
         inputs = tensor.Tensor(device=dev, data=x_train[0:100], stores_grad=False)
         targets = tensor.Tensor(device=dev, data=y_train[0:100], requires_grad=False, stores_grad=False)
-        outputs = model([inputs,targets])
-        print('outputs',tensor.to_numpy(outputs[0])[0])
+        y = rep.run([inputs])
+        loss = autograd.softmax_cross_entropy(y[0], targets)
+        print('outputs',tensor.to_numpy(loss)[0])
+
+#####backend run only one time
+y = sonnx.Backend.run_model(model,[inputs])
+loss = autograd.softmax_cross_entropy(y[0], targets)
+print('training loss = ', tensor.to_numpy(loss)[0])

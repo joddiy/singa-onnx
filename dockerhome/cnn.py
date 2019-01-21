@@ -144,5 +144,5 @@ if __name__ == '__main__':
                 sgd.update(p, gp)
             break
 
-model = sonnx.ONNXm.get_onnx_model(loss, inputs, targets)
+model = sonnx.get_onnx_model([loss], [inputs, targets])
 onnx.save(model, 'cnn.onnx')
